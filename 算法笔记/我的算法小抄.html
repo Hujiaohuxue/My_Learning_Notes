@@ -1,0 +1,2311 @@
+<!DOCTYPE html><html lang="en"><head>
+<title> 我的算法小抄</title>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+#wmd-preview{
+  max-width: 210mm;
+  margin: 0 auto;
+}
+/* normal start */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Tahoma, Arial, 'Hiragino Sans GB', STHeiti, "Microsoft YaHei", "微软雅黑", 'WenQuanYi Micro Hei', STXihei, "华文细黑", Heiti, "黑体", SimSun, "宋体", Song, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: normal;
+  color: #2f2f2f;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+
+/* link start */
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+/* link end */
+
+
+/* head start */
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bold;
+  text-rendering: optimizelegibility;
+}
+
+h1 {
+  font-size: 2rem;;
+  margin: .8em 0 .6em 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: .7em 0 .5em 0;
+}
+
+h3 {
+  font-size: 1.17rem;
+  margin: .6em 0 .4em 0;
+}
+
+h4 {
+  margin: .5em 0 .3em 0;
+}
+
+video {
+  max-width: 100%;
+}
+
+h5 {
+  font-size: 0.83rem;
+  margin: .5em 0 .3em 0;
+}
+
+h6 {
+  font-size: 0.67rem;
+  margin: .5em 0 .3em 0;
+}
+/* head end */
+
+.xsj_hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px dashed #2f2f2f;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+}
+
+p {
+    margin: 1.1em 0 1.6em;
+}
+
+pre{
+    line-height: initial !important;
+    word-wrap: break-word;
+    word-break: break-word;
+    tab-size: 4;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+kbd{
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 11px;
+    line-height: 10px;
+    color: #2f2f2f;
+    vertical-align: middle;
+    background: #fcfcfc;
+    border: solid 1px #2f2f2f;
+    border-bottom-color: #2f2f2f;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #2f2f2f;
+}
+
+address {
+  display: block;
+  margin-bottom: 20px;
+  font-style: normal;
+  line-height: 20px;
+}
+
+
+small {
+  font-size: 85%;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+cite {
+  font-style: normal;
+}
+
+
+/* list start */
+ul,ol {
+  padding: 0;
+  margin: 1.1em 0 1.1em 3em;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 1em;
+}
+/* list end */
+
+dl {
+  margin-bottom: 20px;
+}
+
+dt,
+dd {
+  line-height: 20px;
+}
+
+dt {
+  font-weight: bold;
+  line-height: 1.35em;
+}
+
+dd {
+  margin-left: 10px;
+  line-height: 1.35em;
+}
+abbr[title],
+abbr[data-original-title] {
+  cursor: help;
+  border-bottom: 1px dotted #999999;
+}
+
+/* normal end */
+
+
+/* blockquote start */
+blockquote {
+  padding: 20px 20px;
+  margin: 20px 0 20px;
+  border-left: 5px solid rgba(153, 153, 153, 0.2);
+  background: rgba(204, 204, 204, 0.2);
+}
+
+blockquote p {
+    margin: 1.1em 0 1.1em;
+}
+
+blockquote>ol.markdown_ol, blockquote>ul.markdown_ul{
+  margin-left: 1.1em;
+}
+
+blockquote>*:first-child {
+  margin-top: 0;
+}
+
+blockquote>*:last-child {
+  margin-bottom: 0;
+}
+
+blockquote small {
+  display: block;
+  line-height: 20px;
+  color: #999999;
+}
+
+blockquote small:before {
+  content: '\2014 \00A0';
+}
+
+blockquote footer{
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote footer cite {
+    margin: 0 1em;
+}
+
+/* blockquote end */
+
+/**
+ * Treeview syntax highlighting based on highlight.js
+ * Copyright (c) 2014-2015, Asciidocfx Team, (MIT Licensed)
+ * https://github.com/asciidocfx/highlight-treeview.js
+ */
+.language-treeview.hljs{
+  position: relative;
+}
+.hljs-folder,
+.hljs-hiddenfile,
+.hljs-file {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    height: 16px;
+}
+.hljs-folder:before,
+.hljs-file:before,
+.hljs-hiddenfile:before {
+    top: 0;
+    content: '';
+    width: 14px;
+    height: 12px;
+    margin-top: 0px;
+    margin-right: 3px;
+    position: relative;
+    display: inline-block;
+    background-size: 14px;
+    background-repeat: no-repeat;
+}
+.hljs-file:before,
+.hljs-hiddenfile:before {
+    height: 14px;
+    margin-left: 1px;
+}
+.hljs-hiddenfile {
+    opacity: 0.6;
+}
+.hljs-file.photo:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c5";
+}
+.hljs-file.plain:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f016";
+}
+.hljs-file.source:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c9";
+}
+.hljs-file.archive:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c6";
+}
+.hljs-file.audio:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c7";
+}
+.hljs-file.video:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c8";
+}
+.hljs-file.pdf:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c1";
+}
+.hljs-file.xls:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c3";
+}
+.hljs-file.doc:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c2";
+}
+.hljs-file.ppt:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c4";
+}
+.hljs-folder:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f114";
+}
+.hljs-hiddenfile:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f016";
+}
+.hljs-tvline {
+    margin-left: 6px;
+    position: absolute;
+    text-indent: -99em;
+    padding-bottom: 8px;
+    vertical-align: top;
+    display: inline-block;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(94, 144, 117);
+}
+.hljs-folder-branch {
+    width: 8px;
+    height: 8px;
+    margin-top: -1px;
+    margin-left: 6px;
+    text-indent: -99em;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(94, 144, 117);
+}
+.hljs-folder-branch.win {
+    width: 14px;
+    margin-right: 2px;
+}
+.hljs-folder-last-branch {
+    height: 7px;
+    width: 7px;
+    margin-left: 6px;
+    text-indent: -99em;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(94, 144, 117);
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(94, 144, 117);
+}
+.hljs-folder-last-branch.win {
+    width: 13px;
+    margin-right: 2px;
+}
+
+
+/**
+ * Treeview syntax highlighting based on highlight.js
+ */
+
+/*wavedrom start*/
+
+.wavedrom_svg text, .wavedrom_svg_defs text {
+    font-size:11pt;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    font-stretch:normal;
+    text-align:center;
+    fill-opacity:1;
+    font-family:Helvetica
+}
+.wavedrom_svg .muted, .wavedrom_svg_defs .muted {
+    fill:#aaa
+}
+.wavedrom_svg .warning, .wavedrom_svg_defs .warning {
+    fill:#f6b900
+}
+.wavedrom_svg .error, .wavedrom_svg_defs .error {
+    fill:#f60000
+}
+.wavedrom_svg .info, .wavedrom_svg_defs .info {
+    fill:#0041c4
+}
+.wavedrom_svg .success, .wavedrom_svg_defs .success {
+    fill:#00ab00
+}
+.wavedrom_svg .h1, .wavedrom_svg_defs .h1 {
+    font-size:33pt;
+    font-weight:bold
+}
+.wavedrom_svg .h2, .wavedrom_svg_defs .h2 {
+    font-size:27pt;
+    font-weight:bold
+}
+.wavedrom_svg .h3, .wavedrom_svg_defs .h3 {
+    font-size:20pt;
+    font-weight:bold
+}
+.wavedrom_svg .h4, .wavedrom_svg_defs .h4 {
+    font-size:14pt;
+    font-weight:bold
+}
+.wavedrom_svg .h5, .wavedrom_svg_defs .h5 {
+    font-size:11pt;
+    font-weight:bold
+}
+.wavedrom_svg .h6, .wavedrom_svg_defs .h6 {
+    font-size:8pt;
+    font-weight:bold
+}
+.wavedrom_svg_defs .s1 {
+    fill:none;
+    stroke:#000;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none
+}
+.wavedrom_svg_defs .s2 {
+    fill:none;
+    stroke:#000;
+    stroke-width:0.5;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none
+}
+.wavedrom_svg_defs .s3 {
+    color:#000;
+    fill:none;
+    stroke:#000;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:1,3;
+    stroke-dashoffset:0;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s4 {
+    color:#000;
+    fill:none;
+    stroke:#000;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none;
+    stroke-dashoffset:0;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible
+}
+.wavedrom_svg_defs .s5 {
+    fill:#fff;
+    stroke:none
+}
+.wavedrom_svg_defs .s6 {
+    color:#000;
+    fill:#ffffb4;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s7 {
+    color:#000;
+    fill:#ffe0b9;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s8 {
+    color:#000;
+    fill:#b9e0ff;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s9 {
+    fill:#000;
+    fill-opacity:1;
+    stroke:none
+}
+.wavedrom_svg_defs .s10 {
+    color:#000;
+    fill:#fff;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s11 {
+    fill:#0041c4;
+    fill-opacity:1;
+    stroke:none
+}
+.wavedrom_svg_defs .s12 {
+    fill:none;
+    stroke:#0041c4;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none
+}
+
+/*wavedrom stop*/
+
+
+/* fontawesome */
+
+/*!
+ * Font Awesome Free 5.7.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+svg:not(:root).svg-inline--fa {
+  overflow: visible; }
+
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em; }
+  .svg-inline--fa.fa-lg {
+    vertical-align: -.225em; }
+  .svg-inline--fa.fa-w-1 {
+    width: 0.0625em; }
+  .svg-inline--fa.fa-w-2 {
+    width: 0.125em; }
+  .svg-inline--fa.fa-w-3 {
+    width: 0.1875em; }
+  .svg-inline--fa.fa-w-4 {
+    width: 0.25em; }
+  .svg-inline--fa.fa-w-5 {
+    width: 0.3125em; }
+  .svg-inline--fa.fa-w-6 {
+    width: 0.375em; }
+  .svg-inline--fa.fa-w-7 {
+    width: 0.4375em; }
+  .svg-inline--fa.fa-w-8 {
+    width: 0.5em; }
+  .svg-inline--fa.fa-w-9 {
+    width: 0.5625em; }
+  .svg-inline--fa.fa-w-10 {
+    width: 0.625em; }
+  .svg-inline--fa.fa-w-11 {
+    width: 0.6875em; }
+  .svg-inline--fa.fa-w-12 {
+    width: 0.75em; }
+  .svg-inline--fa.fa-w-13 {
+    width: 0.8125em; }
+  .svg-inline--fa.fa-w-14 {
+    width: 0.875em; }
+  .svg-inline--fa.fa-w-15 {
+    width: 0.9375em; }
+  .svg-inline--fa.fa-w-16 {
+    width: 1em; }
+  .svg-inline--fa.fa-w-17 {
+    width: 1.0625em; }
+  .svg-inline--fa.fa-w-18 {
+    width: 1.125em; }
+  .svg-inline--fa.fa-w-19 {
+    width: 1.1875em; }
+  .svg-inline--fa.fa-w-20 {
+    width: 1.25em; }
+  .svg-inline--fa.fa-pull-left {
+    margin-right: .3em;
+    width: auto; }
+  .svg-inline--fa.fa-pull-right {
+    margin-left: .3em;
+    width: auto; }
+  .svg-inline--fa.fa-border {
+    height: 1.5em; }
+  .svg-inline--fa.fa-li {
+    width: 2em; }
+  .svg-inline--fa.fa-fw {
+    width: 1.25em; }
+
+.fa-layers svg.svg-inline--fa {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -.125em;
+  width: 1em; }
+  .fa-layers svg.svg-inline--fa {
+    -webkit-transform-origin: center center;
+            transform-origin: center center; }
+
+.fa-layers-text, .fa-layers-counter {
+  display: inline-block;
+  position: absolute;
+  text-align: center; }
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center center;
+          transform-origin: center center; }
+
+.fa-layers-counter {
+  background-color: #ff253a;
+  border-radius: 1em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
+  height: 1.5em;
+  line-height: 1;
+  max-width: 5em;
+  min-width: 1.5em;
+  overflow: hidden;
+  padding: .25em;
+  right: 0;
+  text-overflow: ellipsis;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right; }
+
+.fa-layers-bottom-right {
+  bottom: 0;
+  right: 0;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right; }
+
+.fa-layers-bottom-left {
+  bottom: 0;
+  left: 0;
+  right: auto;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left; }
+
+.fa-layers-top-right {
+  right: 0;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right; }
+
+.fa-layers-top-left {
+  left: 0;
+  right: auto;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top left;
+          transform-origin: top left; }
+
+.fa-lg {
+  font-size: 1.33333em;
+  line-height: 0.75em;
+  vertical-align: -.0667em; }
+
+.fa-xs {
+  font-size: .75em; }
+
+.fa-sm {
+  font-size: .875em; }
+
+.fa-1x {
+  font-size: 1em; }
+
+.fa-2x {
+  font-size: 2em; }
+
+.fa-3x {
+  font-size: 3em; }
+
+.fa-4x {
+  font-size: 4em; }
+
+.fa-5x {
+  font-size: 5em; }
+
+.fa-6x {
+  font-size: 6em; }
+
+.fa-7x {
+  font-size: 7em; }
+
+.fa-8x {
+  font-size: 8em; }
+
+.fa-9x {
+  font-size: 9em; }
+
+.fa-10x {
+  font-size: 10em; }
+
+.fa-fw {
+  text-align: center;
+  width: 1.25em; }
+
+.fa-ul {
+  list-style-type: none;
+  margin-left: 2.5em;
+  padding-left: 0; }
+  .fa-ul > li {
+    position: relative; }
+
+.fa-li {
+  left: -2em;
+  position: absolute;
+  text-align: center;
+  width: 2em;
+  line-height: inherit; }
+
+.fa-border {
+  border: solid 0.08em #eee;
+  border-radius: .1em;
+  padding: .2em .25em .15em; }
+
+.fa-pull-left {
+  float: left; }
+
+.fa-pull-right {
+  float: right; }
+
+.far,.fa {
+  margin: 0 .3em;
+}
+.fa.fa-pull-left,
+.fas.fa-pull-left,
+.far.fa-pull-left,
+.fal.fa-pull-left,
+.fab.fa-pull-left {
+  margin-right: .3em; }
+
+.fa.fa-pull-right,
+.fas.fa-pull-right,
+.far.fa-pull-right,
+.fal.fa-pull-right,
+.fab.fa-pull-right {
+  margin-left: .3em; }
+
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+          animation: fa-spin 2s infinite linear; }
+
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+          animation: fa-spin 1s infinite steps(8); }
+
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+.fa-rotate-90 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg); }
+
+.fa-rotate-180 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg); }
+
+.fa-rotate-270 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg); }
+
+.fa-flip-horizontal {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1); }
+
+.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(1, -1);
+          transform: scale(1, -1); }
+
+.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1); }
+
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical,
+:root .fa-flip-both {
+  -webkit-filter: none;
+          filter: none; }
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  position: relative;
+  width: 2.5em; }
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em; }
+
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em; }
+
+.fa-inverse {
+  color: #fff; }
+
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+.sr-only-focusable:active, .sr-only-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto; }
+
+/* fontawesome end*/
+
+/* xsj patch start */
+
+.xsj_anchor{
+  overflow: hidden;
+  float: right;
+}
+
+.blank_anchor_id {
+    float: right;
+    width: 1px;
+    height: 0px;
+}
+.blank_anchor_id {
+    visibility: hidden;
+}
+.blank_anchor_id:before {
+    content: 'a';
+}
+.xsj_foreignObject{
+  width: 100%!important;
+  height: 100%!important;
+  text-align: initial;
+  word-spacing: normal;
+}
+.xsj_foreignObject hr{
+    margin: inherit;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject *{
+  font-size: inherit;
+}
+.xsj_export_pdf .xsj_foreignObject.xsj_drawio_foreignObject *{
+  font-size: 85%;
+}
+
+.xsj_export_pdf ins .mathjax .MathJax_SVG {
+    border-bottom: 2px solid;
+}
+
+.xsj_foreignObject.xsj_drawio_foreignObject h1{
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h2{
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h3{
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h4{
+  font-size: 1em;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h5{
+  font-size: .83em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h6{
+  font-size: .67em;
+  margin-block-start: 2.33em;
+  margin-block-end: 2.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+/* xsj patch end */
+
+
+/* title start */
+h1.story_title {
+    font-size: 2.1rem;
+    margin: 0.7em 0;
+}
+/* title end */
+
+/* tag start */
+.story_tags {
+    margin: 0 0 1.2em;
+}
+.tag.label{
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1;
+    margin: 0 0.5em 0.5em 0;
+    background: #e2e2e2;
+    border-color: #e2e2e2;
+    background-image: none;
+    padding: 0.6em 0.8em;
+    font-weight: bold;
+    border-radius: 0.2857rem;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+/* tag end */
+
+/* emoji */
+img.emoji {
+    width: 1em;
+    line-height: 1em;
+    vertical-align: baseline;
+    margin-bottom: 0;
+}
+/* emoji */
+
+/* align grammar start*/
+
+.story_align_left, .story_align_left .story_image_container {
+    text-align: left;
+}
+.story_align_right, .story_align_right .story_image_container {
+    text-align: right;
+}
+.story_align_center, .story_align_center .story_image_container {
+    text-align: center;
+}
+.story_align_justify, .story_align_justify .story_image_container {
+    text-align: justify;
+}
+
+/* align grammar end*/
+
+/*mindmap start*/
+.mindmap_container {
+  text-align: center;
+}
+
+.xsj_mindmap_caption{
+   border-bottom: 1px solid #d9d9d9;
+  display: inline-block;
+  color: #999;
+  padding: 10px;
+}
+/*mindmap end*/
+
+
+
+/* table start*/
+
+table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  word-break: initial;
+  border: 1px solid #d9d9da;
+}
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #d9d9da;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.table thead th {
+  vertical-align: bottom;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #d9d9da;
+}
+
+.table .table {
+  background-color: #ffffff;
+}
+
+
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+
+.table-celled.table tr td,.table-celled.table tr th {
+    border-left: 1px solid #d9d9da;
+}
+
+/* table end*/
+
+/*code start*/
+
+code {
+    background-color: #F0F0F0;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: 0 .225em;
+    color: #880000;
+}
+body code{
+    border: 0;
+    border-radius: 4px;
+    font-size: .9em;
+}
+
+.hljs, .hljs * {
+  overflow: visible !important;
+} 
+
+body .xiaoshujiang_code {
+    border: 0;
+    border-radius: 4px;
+    font-size: .9em;
+}
+.xiaoshujiang_code ol{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.xiaoshujiang_pre {
+    line-height: initial !important;
+    word-wrap: break-word;
+    word-break: break-word;
+    tab-size: 4;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+.xiaoshujiang_code_container pre{
+    margin: 0px;
+}
+.xiaoshujiang_code_container.xiaoshujiang_code_chunk{
+    box-shadow: 0 0 0 1px #A3C293 inset,0 0 0 0 transparent;
+    margin: 1em 0;
+    padding: 1em;
+}
+.xiaoshujiang_code_container.xiaoshujiang_code_chunk_hide_code{
+    box-shadow: initial;
+    padding: initial;
+    padding-bottom: 2em;
+}
+.xiaoshujiang_code_container .out_put{
+    box-shadow: 0 0 0 1px #A3C293 inset,0 0 0 0 transparent;
+    margin: 1em 0;
+    background-color: #FCFFF5;
+    color: #2C662D;
+    padding: 1em;
+}
+.xiaoshujiang_code_container .out_put_error{
+    background-color: #FFF6F6;
+    color: #9F3A38;
+    margin: 1em 0;
+    box-shadow: 0 0 0 1px #E0B4B4 inset,0 0 0 0 transparent;
+    padding: 1em;
+}
+
+/*code end*/
+
+/* code line nums start*/
+
+code.hljs.code_linenums, .xiaoshujiang_code.hljs.code_linenums{
+    position: relative;
+}
+.ol_linenums{
+    padding: 0px;
+    margin-left: 2em;
+    border-left: 1px solid #e0e0e0;
+}
+.li_linenum{
+    position:relative;
+    margin-left: 0.5em;
+    list-style: none;
+    counter-increment: lines 1;
+}
+.li_linenum.li_list_style{
+    list-style: inherit;
+    margin-left: 5px;
+}
+.li_linenum:before, .li_linenum_before_span{
+    content: counter(lines, decimal);
+  position: absolute;
+  left: -3em;
+  text-align: center;
+  width: 2.5em;
+  vertical-align: top;
+}
+.li_linenum_before_span_hide{
+    display: none;
+}
+.xiaoshujiang_code .code_line_break_hack{
+    margin:0;
+    border:0;
+    border-top:0;
+    border-bottom:0;
+}
+.component_attachment, .code_line_break_hack{
+  display: none;
+  visibility: collapse!important;
+  height: 0!important;
+}
+
+/* code line nums end*/
+
+/* block code start */
+.xiaoshujiang_code_container {
+    margin: 1em 0px 2em;
+    position: relative;
+}
+
+
+.xiaoshujiang_code_title_container{
+    font-size: 50%;
+}
+.xiaoshujiang_code_title_container>.xiaoshujiang_code_infos{
+    float: right;
+}
+/* block code end */
+
+
+/*mark start*/
+
+.mark{
+  border: 0;
+  background-color: rgba(221, 243, 231, 0.4);
+  color: #105012;
+  padding: 2px 4px;
+}
+
+.mark_color_000000{
+  color: transparent!important;
+  background: initial!important;
+  border-bottom: 2px solid #3a4c42;
+  transition: color .6s;
+}
+
+.mark_color_000000:hover{
+  color: black!important;
+}
+
+.li_linenum.line_mark:before, .line_mark .li_linenum_before_span {
+    background: rgba(210, 118, 118, 0.6);
+}
+.line_mark{
+    border: 1px dashed #3A4C42;
+    margin-top: 2px;
+}
+code .mark, .xiaoshujiang_code .mark{
+    border-radius: 0px;
+    font-size: initial;
+    padding: initial;
+}
+/*mark end*/
+
+
+.xsj_code_strong{
+  -webkit-text-emphasis: triangle;
+  -webkit-text-emphasis-position: under;
+}
+
+/* attachment start */
+a.attachment{
+    background: #ecf0f3;
+    border: 1px solid #bec6cb;
+    display: inline-block;
+    padding: 0.6em;
+    margin: 0.5em 0.5em;
+    min-width: 250px;
+}
+a.attachment i.fa{
+    font-size: 3em;
+  float: left;
+  margin-right: 0.2em;
+}
+a.attachment .filename{
+    vertical-align: top;
+  text-align: left;
+  font-weight: bold;
+}
+a.attachment .filesize{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  opacity: .6;
+  font-size: 80%;
+  white-space: nowrap;
+}
+/* attachment end */
+
+
+/*code chunk video, slideshare start*/
+.video_container{
+    width: 100%;
+    display: table;
+    text-align: center;
+    position: relative;
+    padding-bottom: 56.25%!important;
+}
+
+.video_container iframe{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    vertical-align: middle;
+}
+
+.slideshare_container .inner{
+    position: relative;
+    width: 100%;
+}
+
+.slideshare_container .inner iframe{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/*code chunk video, slideshare start*/
+
+
+
+/*mermaid start*/
+
+.mermaid {
+    text-align: center;
+}
+
+.mermaid_svg{
+    font-family: monospace;
+    text-align: initial;
+}
+.mermaid_svg foreignObject{
+  overflow: visible;
+}
+.mermaid_svg foreignObject i.fa{
+  min-width: 16px;
+}
+.mermaid_svg .svg-inline--fa,.mermaid_svg .svg-inline--fa path {
+    fill: initial!important;
+    stroke: initial!important;
+}
+
+.mermaid_svg .grid path {
+  stroke: transparent;
+}
+/*mermaid stop*/
+
+
+/* patch evernote start*/
+.toc ul {
+    list-style-type: none;
+}
+/* patch evernote end*/
+
+
+/* image start*/
+img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0;
+}
+
+.story_image_container{
+    text-align: center;
+}
+.story_image_container>.story_image{
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+}
+.story_image_caption, .xsj_remote_html_caption {
+    border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 10px;
+}
+.story_image_blank_caption, .xsj_remote_html_blank_caption{
+    display: none;
+}
+.story_image>img{
+    border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);
+}
+
+.story_inline_image{
+  display: inline-block;
+}
+.story_inline_image>img{
+    vertical-align: bottom;
+}
+/* image end*/
+
+.story_remote_resource_block{
+    text-align: center;
+}
+
+/* task list start */
+.task-list-item{
+    list-style: none;
+}
+.task-list-item.li_list_style{
+    list-style:inherit;
+}
+.task-list-item > p {
+  margin: 0;
+}
+
+/* task list end */
+
+/* other start */
+em.cjk_emphasis{
+    font-style: normal;
+    font-family: Georgia,"Times New Roman",Times,"楷体","AR PL UKai CN", "NSimSun","Songti SC","SimSun",serif!important;
+}
+
+.flow-chart, .sequence-diagram{
+    text-align: center;
+}
+.plot, .plot-image{
+    text-align: center;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+ins .mathjax .MathJax_SVG {
+    border-bottom: 1px solid;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+}
+
+.mathjax-container{
+    text-align: center;
+    margin: 0 auto;
+}
+div.mathjax{
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.mathjax-container .math_equation_table{
+  border: 0;
+  width: 100%;
+}
+.mathjax-container .math_equation_table td{
+  text-align: center;
+  vertical-align: top;
+}
+
+.xsj_export_pdf .fa-border {
+  border: none;
+  border-radius: initial;
+  padding: initial;
+  margin: 0 .25em;
+  outline-offset: .2em;
+  outline: 1px solid #eee;
+}
+.preview.html_preview{
+  max-width: 100%;
+}
+
+.xsj_export_pdf.preview.html_preview{
+  max-width: initial;
+  border: initial;
+  margin: initial;
+  padding: initial;
+  border-radius: initial;
+  box-shadow: initial;
+}
+/* other end */
+
+
+
+
+/* blockquote start*/
+/** only icon **/
+.html_preview>.markdown_blockquote{
+    position: relative;
+}
+.html_preview>.markdown_blockquote.markdown_blockquote_icon{
+    margin-left: 10px;
+}
+.html_preview>.markdown_blockquote>.xsj_paragraph:first-child>i:first-child{
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -18px;
+    line-height: 30px;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    font-size: 16px!important;
+    padding: 0;
+    border: 0px;
+
+}
+
+.html_preview>.markdown_blockquote>.xsj_paragraph:first-child>.svg-image:first-child,
+.html_preview>.markdown_blockquote>.xsj_paragraph:first-child>svg.svg-inline--fa:first-child {
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -15px;
+    line-height: 30px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    box-shadow: 0 0 0px 5px #dedede;
+    font-size: 16px!important;
+    padding: 0;
+    border: 0px;
+    outline: 0;
+    margin: 0;
+}
+/** only icon **/
+/** heading **/
+.html_preview > .markdown_blockquote.markdown_blockquote_heading {
+    margin-top: 40px;
+    page-break-inside: auto;
+}
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child {
+    display: block;
+    font-size: 1.4em;
+    background-color: #dedede;
+    padding: 0 15px;
+    margin: -20px;
+    position: relative;
+}
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child .xsj_heading_content>i:first-child {
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -16px;
+    top: .25em;
+    line-height: 30px;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    font-size: 16px !important;
+    padding: 0;
+    border: 0px;
+}
+
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child .xsj_heading_content>.svg-image:first-child,
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child .xsj_heading_content>svg.svg-inline--fa:first-child {
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -15px;
+    top: .25em;
+    line-height: 30px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    box-shadow: 0 0 0px 5px #dedede;
+    font-size: 16px!important;
+    padding: 0;
+    border: 0px;
+    outline: 0;
+    margin: 0;
+}
+
+/** heading **/
+/* blockquote end*/
+
+
+@media print{
+  body{
+    font-size: 18px;
+    word-wrap: break-word;
+    word-break: break-word;
+    background: initial!important;
+    font-kerning: normal;
+    text-rendering: geometricPrecision;
+  }
+  .preview.html_preview{
+    max-width: initial;
+    border: initial;
+    margin: initial;
+    padding: initial;
+    border-radius: initial;
+    box-shadow: initial;
+  }
+  .xiaoshujiang_element.xsj_anchor{
+    position: absolute;
+  }
+  tr { page-break-inside: avoid; }
+  .story_image_container{
+     page-break-inside: avoid;
+  }
+  blockquote{
+    page-break-inside: avoid;
+  }
+
+  .xsj_underline{
+      page-break-after: always;
+      visibility: hidden;
+  }
+}
+
+body{color:#2f2f2f}.xsj_hr{border-top:1px dashed #2f2f2f}kbd{color:#2f2f2f;border:solid 1px #2f2f2f;border-bottom-color:#2f2f2f;box-shadow:inset 0 -1px 0 #2f2f2f}table{border:1px solid rgba(34,36,38,.15)}.table td,.table th{border-top:1px solid #ddd}.table tbody+tbody{border-top:2px solid #ddd}.table .table{background:#fff}.table-striped tbody>tr:nth-child(odd)>td,.table-striped tbody>tr:nth-child(odd)>th{background:#f9f9f9}.table-celled.table tr td,.table-celled.table tr th{border-left:1px solid rgba(34,36,38,.1)}.line_mark{background:rgba(210,174,174,.3)}.xiaoshujiang_code .mark,code .mark{background:rgba(160,234,194,.7)}.markdown_vertical>*,.markdown_vertical>:first-child{margin-top:.8em}.markdown_vertical{font-family:YRDZST,"Noto Serif CJK SC",FandolKai,"Adobe Kaiti Std","Adobe 楷体 Std",FZKai-Z03S,"方正楷体简体","AR PL UKai CN","楷体",NSimSun,SimSun,serif;font-size:1.2em;writing-mode:vertical-rl;border:initial;border-left:initial;background:initial;margin-left:auto!important;margin-right:0}.markdown_vertical em{-webkit-text-emphasis:circle}.markdown_vertical strong{border-left:2px solid}.html_preview>.markdown_blockquote_heading.markdown_vertical>.xsj_heading:first-child{position:initial;background:initial;border:initial;background-color:initial;border-top:initial}.html_preview>.markdown_blockquote.markdown_vertical>.xsj_paragraph:first-child>i:first-child,.html_preview>.markdown_blockquote_heading.markdown_vertical>.xsj_heading:first-child .xsj_heading_content>i:first-child{position:initial;background-color:initial}@media print{.markdown_vertical{writing-mode:initial}.markdown_vertical strong{border-left:0;border-bottom:2px solid}}
+/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta .hljs-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta .hljs--string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+</head><body>
+<div><div class="preview" id="wmd-preview">
+
+	<div class="preview html_preview xsj_export_html"><h1 class="story_title">我的算法小抄</h1><h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e79baee5bd95_1"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e79baee5bd95_1" class="blank_anchor_name"></a><a id="e79baee5bd95_1" class="blank_anchor_id"></a><a name="目录" class="blank_anchor_name"></a><a id="目录" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">目录</span></h1>
+<p class="xsj_paragraph xsj_paragraph_level_0"></p><div class="toc"><ul><li><a href="#e79baee5bd95_1" data-hash="767fa455bb6826f4b550c21a6bca7182">目录</a></li><li><a href="#e5898de8a880_2" data-hash="df36888424843793b8bfe4fd460c9b87">前言</a></li><li><a href="#e4b880e38081e9ab98e7b2bee5baa6e7ae97e6b395_3" data-hash="150f00f90e6cc72305fad09e6caf19a5">一、高精度算法</a><ul><li><a href="#1e9ab98e7b2bee5baa6e58aa0e6b395_4" data-hash="0a0037450ee19fcdc83f50fbf3c5e8f9">1.高精度加法</a></li><li><a href="#2e9ab98e7b2bee5baa6e5878fe6b395_5" data-hash="adc124f1c175eaefc59e93984b9ca9d4">2.高精度减法</a></li><li><a href="#3e9ab98e7b2bee5baa6e4b998e6b395_6" data-hash="2e224fe64aa289245624d03da464945a">3.高精度乘法</a></li><li><a href="#4e9ab98e7b2bee5baa6e999a4e6b395_7" data-hash="ab541615d6eb47a8cada43cc2ce4a288">4.高精度除法</a><ul><li><a href="#e9ab98e7b2bee5baa6e999a4e4bba5e4bd8ee7b2bee5baa6_8" data-hash="fde85bcf9c2dcbfd09750ceea907fcf5">高精度除以低精度</a></li><li><a href="#e9ab98e7b2bee5baa6e999a4e4bba5e9ab98e7b2bee5baa6_9" data-hash="0b05726a675d928385557dd6a792813a">高精度除以高精度</a></li></ul></li><li><a href="#5e6af94e8be83e9ab98e7b2bee5baa6e695b0e79a84e5a4a7e5b08fe7a4bae4be8b_10" data-hash="d3cf0427da26ea2c216cd091c312859b">5.比较高精度数的大小(示例)</a></li></ul></li><li><a href="#e4ba8ce38081e68e92e5ba8fe7ae97e6b395_11" data-hash="09f8df34e56d7cdee6073a9faf7145df">二、排序算法</a><ul><li><a href="#1e58692e6b3a1e68e92e5ba8f_12" data-hash="be52fe1d114f184c7ca0f1eefdb3a8c3">1.冒泡排序</a></li><li><a href="#2e6a1b6e68e92e5ba8f_13" data-hash="8f434a422bb31124c6402a154fb08ef2">2.桶排序</a></li><li><a href="#3stlefbc9fefbc81efbc81efbc81efbc81_14" data-hash="75052da8f7bbf135d45afaaabd7d980c">3.STL？！！！！</a></li><li><a href="#4e5bfabe9809fe68e92e5ba8f_15" data-hash="0015281463b6e4f5e89b3541ba3cf859">4.快速排序</a></li></ul></li><li><a href="#e59b9be38081e98092e5bd92e6ada4e5a484e58faae5b195e7a4bae4b880e4ba9be7bb8fe585b8e4be8be5ad90_16" data-hash="60c48559fab2d375b45033d20afa6f3f">四、递归(此处只展示一些经典例子)</a><ul><li><a href="#1e69c80e5a4a7e585ace7baa6e695b0e4b88ee69c80e5b08fe585ace5808de695b0_17" data-hash="bb25bd61e6cbc5983d837510a1a34eb8">1.最大公约数与最小公倍数</a></li></ul></li><li><a href="#e4ba94e38081e98092e68ea8dpe58aa8e68081e8a784e58892efbc8ce5928ce4b88ae99da2e4b880e6a0b7efbc8ce58faae58897e4b8bee4b880e4ba9be4be8be5ad90_18" data-hash="efaaa9ae330e500a6b68d41258b6233b">五、递推(DP动态规划，和上面一样，只列举一些例子)</a><ul><li><a href="#1e6b49be8b0b7p1255e28094e28094e695b0e6a5bce6a2afe4b88de88083e89991e9ab98e7b2bee5baa6_19" data-hash="fed02e06a1dd716adf9a9a2252e1c266">1.洛谷P1255——数楼梯(不考虑高精度)</a></li></ul></li><li><a href="#6e6909ce7b4a2e4b88ee59b9ee6baaf_20" data-hash="e3366f2aa31ad15bc002431d022f8cd6">6.搜索与回溯</a><ul><li><a href="#1dfse6b7b1e5baa6e4bc98e58588e6909ce7b4a2_21" data-hash="aed3dd51d42c8f6c0aa51cc373cd83dd">1.DFS(深度优先搜索)</a></li></ul></li></ul></div><p></p>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e5898de8a880_2"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e5898de8a880_2" class="blank_anchor_name"></a><a id="e5898de8a880_2" class="blank_anchor_id"></a><a name="前言" class="blank_anchor_name"></a><a id="前言" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">前言</span></h1>
+<p class="xsj_paragraph xsj_paragraph_level_0">这个Markdown文件写的是我集训的时候学的算法，模版都在下面了，自己看吧。<strong class="markdown_strong_asterisk">多背背，多写一下模版，这样才会进步</strong></p>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e4b880e38081e9ab98e7b2bee5baa6e7ae97e6b395_3"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4b880e38081e9ab98e7b2bee5baa6e7ae97e6b395_3" class="blank_anchor_name"></a><a id="e4b880e38081e9ab98e7b2bee5baa6e7ae97e6b395_3" class="blank_anchor_id"></a><a name="一-高精度算法" class="blank_anchor_name"></a><a id="一-高精度算法" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">一、高精度算法</span></h1>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="1e9ab98e7b2bee5baa6e58aa0e6b395_4"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="1e9ab98e7b2bee5baa6e58aa0e6b395_4" class="blank_anchor_name"></a><a id="1e9ab98e7b2bee5baa6e58aa0e6b395_4" class="blank_anchor_id"></a><a name="1高精度加法" class="blank_anchor_name"></a><a id="1高精度加法" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">1.高精度加法</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-built_in">string</span> a1,b1;
+<span class="hljs-type">int</span> a[<span class="hljs-number">1001</span>],b[<span class="hljs-number">1001</span>],c[<span class="hljs-number">1001</span>];  <span class="hljs-comment">//</span>
+<span class="hljs-type">int</span> la,lb,lc,x=<span class="hljs-number">0</span>;  <span class="hljs-comment">//数字的长度  x是进位 </span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-built_in">cin</span>&gt;&gt;a1&gt;&gt;b1;
+	la = a1.size();
+	lb = b1.size();
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=la<span class="hljs-number">-1</span>;i++){
+		a[la-i]=a1[i]-<span class="hljs-string">'0'</span>; <span class="hljs-comment">//倒序存储两个高精度的数 </span>
+	}	
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;=lb<span class="hljs-number">-1</span>;i++){
+		b[lb-i]=b1[i]-<span class="hljs-string">'0'</span>;
+	} 
+	lc=<span class="hljs-number">1</span>;
+	<span class="hljs-keyword">while</span>(lc&lt;=la || lc&lt;=lb){
+		c[lc] = a[lc]+b[lc]+x;  <span class="hljs-comment">//c数组去存 </span>
+		x = c[lc]/<span class="hljs-number">10</span>;  <span class="hljs-comment">//存储下一次加法的进位 </span>
+		c[lc]%=<span class="hljs-number">10</span>;   
+		lc++;
+	}
+	c[lc]=x;
+	<span class="hljs-keyword">while</span>(c[lc]==<span class="hljs-number">0</span> &amp;&amp; lc&gt;<span class="hljs-number">1</span>) lc--;  <span class="hljs-comment">//去掉前导0 </span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=lc;i&gt;=<span class="hljs-number">1</span>;i--){
+		<span class="hljs-built_in">cout</span>&lt;&lt;c[i];
+	} 
+	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="2e9ab98e7b2bee5baa6e5878fe6b395_5"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="2e9ab98e7b2bee5baa6e5878fe6b395_5" class="blank_anchor_name"></a><a id="2e9ab98e7b2bee5baa6e5878fe6b395_5" class="blank_anchor_id"></a><a name="2高精度减法" class="blank_anchor_name"></a><a id="2高精度减法" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">2.高精度减法</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;cstring&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-comment">//高精度减法 被减数和减数大小不确定，位数不一定相同，可能存在借位 </span>
+	<span class="hljs-type">char</span> a1[<span class="hljs-number">256</span>],b1[<span class="hljs-number">256</span>];
+	<span class="hljs-comment">//1.输入两个高精度数</span>
+	<span class="hljs-built_in">cin</span>&gt;&gt;a1&gt;&gt;b1; <span class="hljs-comment">//下标为0存最高位 </span>
+	<span class="hljs-comment">//2.计算两个高精度数的长度</span>
+	<span class="hljs-type">int</span> lena=<span class="hljs-built_in">strlen</span>(a1); 
+	<span class="hljs-type">int</span> lenb=<span class="hljs-built_in">strlen</span>(b1);
+	<span class="hljs-comment">//3.比较大小</span>
+	<span class="hljs-type">int</span> flag=<span class="hljs-number">0</span>;<span class="hljs-comment">//0等于  1 a1&gt;b1    -1 a1&lt;b1</span>
+	<span class="hljs-keyword">if</span>(lena&gt;lenb){
+		flag=<span class="hljs-number">1</span>;
+	} 
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(lena&lt;lenb){
+		flag=<span class="hljs-number">-1</span>;
+	} 
+	<span class="hljs-keyword">else</span>{
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;lena;i++) {
+			<span class="hljs-keyword">if</span>(a1[i] &gt; b1[i]){
+				flag=<span class="hljs-number">1</span>;
+				<span class="hljs-keyword">break</span>;
+			}
+			<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a1[i] &lt; b1[i]){
+				flag=<span class="hljs-number">-1</span>;
+				<span class="hljs-keyword">break</span>;
+			} 
+		}
+	}
+	<span class="hljs-comment">//4.把字符数组倒序存入整形数组中 ，大的存入a中，小数存入b中 </span>
+	<span class="hljs-type">int</span> a[<span class="hljs-number">256</span>]={<span class="hljs-number">0</span>},b[<span class="hljs-number">256</span>]={<span class="hljs-number">0</span>},c[<span class="hljs-number">256</span>]={<span class="hljs-number">0</span>}; 
+	<span class="hljs-keyword">if</span>(flag==<span class="hljs-number">0</span>){ <span class="hljs-comment">//两个数相等 </span>
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-number">0</span>;
+		<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>; 
+	} 
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flag==<span class="hljs-number">1</span>){ <span class="hljs-comment">//a1&gt;b1   a1-&gt;a   b1-&gt;b</span>
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=lena<span class="hljs-number">-1</span> ; i&lt;lena ; i++,j--){ <span class="hljs-comment">//a[0]存个位 </span>
+			a[i]=a1[j]-<span class="hljs-string">'0'</span>;
+		}
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=lenb<span class="hljs-number">-1</span> ; i&lt;lenb ; i++,j--){
+			b[i]=b1[j]-<span class="hljs-string">'0'</span>;
+		} 
+	} 
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flag==<span class="hljs-number">-1</span>){ <span class="hljs-comment">//a1&lt;b1   b1-&gt;a   a1-&gt;b </span>
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=lenb<span class="hljs-number">-1</span> ; i&lt;lenb ;i++,j--){ <span class="hljs-comment">//a[0]是个位 </span>
+			a[i]=b1[j]-<span class="hljs-string">'0'</span>;
+		}
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>,j=lena<span class="hljs-number">-1</span> ; i&lt;lena ;i++,j--){
+			b[i]=a1[j]-<span class="hljs-string">'0'</span>;
+		} 
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"-"</span>;
+	}
+	<span class="hljs-comment">//5.高精度数相减，处理借位</span>
+	<span class="hljs-type">int</span> len = (lena&gt;lenb?lena:lenb);
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++){
+		<span class="hljs-keyword">if</span>(a[i]&lt;b[i]){ <span class="hljs-comment">//处理借位 </span>
+			a[i]=a[i]+<span class="hljs-number">10</span>; 
+			a[i+<span class="hljs-number">1</span>]--;
+		}
+		c[i]=a[i]-b[i];
+	}
+	<span class="hljs-comment">//6.删除多余前导0</span>
+	<span class="hljs-keyword">while</span>(c[len<span class="hljs-number">-1</span>]==<span class="hljs-number">0</span> &amp;&amp; len&gt;<span class="hljs-number">1</span>) {
+		len--;
+	}
+	<span class="hljs-comment">//7.倒序输出 </span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=len<span class="hljs-number">-1</span>;i&gt;=<span class="hljs-number">0</span>;i--){
+		<span class="hljs-built_in">cout</span>&lt;&lt;c[i];
+	} 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+} 
+</code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="3e9ab98e7b2bee5baa6e4b998e6b395_6"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="3e9ab98e7b2bee5baa6e4b998e6b395_6" class="blank_anchor_name"></a><a id="3e9ab98e7b2bee5baa6e4b998e6b395_6" class="blank_anchor_id"></a><a name="3高精度乘法" class="blank_anchor_name"></a><a id="3高精度乘法" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">3.高精度乘法</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-C++ hljs language-C" data-info="C++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;cstring&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-comment">//高精度乘法</span>
+	<span class="hljs-type">char</span> a1[<span class="hljs-number">1000</span>],b1[<span class="hljs-number">1000</span>];
+	<span class="hljs-type">int</span> a[<span class="hljs-number">1000</span>]={<span class="hljs-number">0</span>},b[<span class="hljs-number">1000</span>]={<span class="hljs-number">0</span>},c[<span class="hljs-number">2000</span>]={<span class="hljs-number">0</span>};
+	<span class="hljs-comment">//1.输入两个高精度数 </span>
+	<span class="hljs-built_in">cin</span>&gt;&gt;a1&gt;&gt;b1; 
+	<span class="hljs-comment">//2.计算高精度数长度</span>
+	<span class="hljs-type">int</span> lena=<span class="hljs-built_in">strlen</span>(a1);
+	<span class="hljs-type">int</span> lenb=<span class="hljs-built_in">strlen</span>(b1); 
+	<span class="hljs-comment">//3.倒序存储在整形数组中</span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>,j=lena<span class="hljs-number">-1</span> ; i&lt;=lena ; i++,j--){ <span class="hljs-comment">//a[1]存个位 </span>
+		a[i]=a1[j]-<span class="hljs-string">'0'</span>;
+	}
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>,j=lenb<span class="hljs-number">-1</span> ; i&lt;=lenb ;i++,j--){ <span class="hljs-comment">//b[1]存个位 </span>
+		b[i]=b1[j]-<span class="hljs-string">'0'</span>;
+	}
+	<span class="hljs-comment">//4.两个高精度数相乘</span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=lenb;i++){ <span class="hljs-comment">//遍历b数组 </span>
+		<span class="hljs-type">int</span> x=<span class="hljs-number">0</span>;<span class="hljs-comment">//x进位 </span>
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;=lena;j++){ <span class="hljs-comment">//遍历a数组 </span>
+			c[i+j<span class="hljs-number">-1</span>] = a[j]*b[i]+x+c[i+j<span class="hljs-number">-1</span>]; 
+			x=c[i+j<span class="hljs-number">-1</span>]/<span class="hljs-number">10</span>;
+			c[i+j<span class="hljs-number">-1</span>]=c[i+j<span class="hljs-number">-1</span>]%<span class="hljs-number">10</span>; 
+		}
+		c[lena+i]=x;
+	} 
+	<span class="hljs-type">int</span> lenc=lena+lenb;
+	<span class="hljs-comment">//5.删除多余前导0</span>
+	 <span class="hljs-keyword">while</span>(c[lenc]==<span class="hljs-number">0</span> &amp;&amp; lenc&gt;<span class="hljs-number">1</span>) {
+	 	lenc--;
+	 }
+	 <span class="hljs-comment">//6.倒序输出c数组</span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=lenc;i&gt;=<span class="hljs-number">1</span>;i--){
+		<span class="hljs-built_in">cout</span>&lt;&lt;c[i];
+	} 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="4e9ab98e7b2bee5baa6e999a4e6b395_7"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="4e9ab98e7b2bee5baa6e999a4e6b395_7" class="blank_anchor_name"></a><a id="4e9ab98e7b2bee5baa6e999a4e6b395_7" class="blank_anchor_id"></a><a name="4高精度除法" class="blank_anchor_name"></a><a id="4高精度除法" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">4.高精度除法</span></h2>
+<h3 class="xsj_heading_hash xsj_heading xsj_heading_h3" id="e9ab98e7b2bee5baa6e999a4e4bba5e4bd8ee7b2bee5baa6_8"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e9ab98e7b2bee5baa6e999a4e4bba5e4bd8ee7b2bee5baa6_8" class="blank_anchor_name"></a><a id="e9ab98e7b2bee5baa6e999a4e4bba5e4bd8ee7b2bee5baa6_8" class="blank_anchor_id"></a><a name="高精度除以低精度" class="blank_anchor_name"></a><a id="高精度除以低精度" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">高精度除以低精度</span></h3>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;cstring&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-type">char</span> a1[<span class="hljs-number">200</span>];
+	<span class="hljs-type">int</span> a[<span class="hljs-number">200</span>]={<span class="hljs-number">0</span>},c[<span class="hljs-number">200</span>]={<span class="hljs-number">0</span>},b,lena,x=<span class="hljs-number">0</span>; <span class="hljs-comment">//c存商  x余数 </span>
+	<span class="hljs-comment">//输入高精度数和低精度数 </span>
+	<span class="hljs-built_in">cin</span>&gt;&gt;a1&gt;&gt;b;  <span class="hljs-comment">//a1[0]存最高位 </span>
+	lena= <span class="hljs-built_in">strlen</span>(a1);
+	<span class="hljs-comment">//把字符数组正序存入整型数组中 </span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;lena;i++){ <span class="hljs-comment">//a[1]存最高位 </span>
+		a[i+<span class="hljs-number">1</span>]=a1[i]-<span class="hljs-string">'0'</span>; 
+	} 
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=lena;i++){
+		c[i]=(x*<span class="hljs-number">10</span>+a[i])/b;  <span class="hljs-comment">//商 </span>
+		x=(x*<span class="hljs-number">10</span>+a[i])%b; <span class="hljs-comment">//余数 </span>
+	} 
+	<span class="hljs-type">int</span> lenc=<span class="hljs-number">1</span>;<span class="hljs-comment">//最高位的下标</span>
+	<span class="hljs-keyword">while</span>(c[lenc]==<span class="hljs-number">0</span> &amp;&amp; lenc&lt;lena){
+		lenc++;
+	} 
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=lenc;i&lt;=lena;i++){ <span class="hljs-comment">//c[lena]存商的个位 </span>
+		<span class="hljs-built_in">cout</span>&lt;&lt;c[i];
+	}
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+} 
+</code></pre></div>
+<h3 class="xsj_heading_hash xsj_heading xsj_heading_h3" id="e9ab98e7b2bee5baa6e999a4e4bba5e9ab98e7b2bee5baa6_9"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e9ab98e7b2bee5baa6e999a4e4bba5e9ab98e7b2bee5baa6_9" class="blank_anchor_name"></a><a id="e9ab98e7b2bee5baa6e999a4e4bba5e9ab98e7b2bee5baa6_9" class="blank_anchor_id"></a><a name="高精度除以高精度" class="blank_anchor_name"></a><a id="高精度除以高精度" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">高精度除以高精度</span></h3>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;cstring&gt;</span> </span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;string&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> a[<span class="hljs-number">1000</span>]={},b[<span class="hljs-number">1000</span>]={},c[<span class="hljs-number">1000</span>]={};
+<span class="hljs-comment">//输入高精度数，并且把高精度数倒序存入整形数组中 </span>
+<span class="hljs-type">void</span> <span class="hljs-title function_">init</span><span class="hljs-params">(<span class="hljs-type">int</span> a[])</span>{
+	<span class="hljs-built_in">string</span> s;
+	<span class="hljs-built_in">cin</span>&gt;&gt;s;
+	a[<span class="hljs-number">0</span>]=s.length();  <span class="hljs-comment">//下标为0位置存数组的长度 </span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=a[<span class="hljs-number">0</span>];i++){ <span class="hljs-comment">//a[1]存个位 </span>
+		a[i]=s[a[<span class="hljs-number">0</span>]-i]-<span class="hljs-string">'0'</span>;
+	}
+} 
+
+<span class="hljs-comment">//把p数组的值赋值给q数组，从det个位置开始 </span>
+<span class="hljs-type">void</span> <span class="hljs-title function_">numcpy</span><span class="hljs-params">(<span class="hljs-type">int</span> p[],<span class="hljs-type">int</span> q[],<span class="hljs-type">int</span> det)</span>{
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=p[<span class="hljs-number">0</span>];i++)
+	{
+		q[i+det<span class="hljs-number">-1</span>]=p[i]; 
+	} 
+	q[<span class="hljs-number">0</span>]=p[<span class="hljs-number">0</span>]+det<span class="hljs-number">-1</span>;
+}
+
+<span class="hljs-comment">//比较函数，比较m数组和n数组的大小</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">compare</span><span class="hljs-params">(<span class="hljs-type">int</span> m[],<span class="hljs-type">int</span> n[])</span>{
+	<span class="hljs-keyword">if</span>(m[<span class="hljs-number">0</span>]&gt;n[<span class="hljs-number">0</span>]){
+		<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+	}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(m[<span class="hljs-number">0</span>]&lt;n[<span class="hljs-number">0</span>]){
+		<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+	}<span class="hljs-keyword">else</span>{
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=m[<span class="hljs-number">0</span>];i&gt;<span class="hljs-number">0</span>;i--){
+			<span class="hljs-keyword">if</span>(m[i]&gt;n[i]){
+				<span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+			}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(m[i]&lt;n[i]){
+				<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+			}
+		} 
+	} 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+} 
+
+<span class="hljs-comment">//减函数</span>
+<span class="hljs-type">void</span> <span class="hljs-title function_">jian</span><span class="hljs-params">(<span class="hljs-type">int</span> a[],<span class="hljs-type">int</span> b[])</span>{
+	<span class="hljs-type">int</span> flag=compare(a,b);
+	<span class="hljs-keyword">if</span>(flag==<span class="hljs-number">0</span>){
+		a[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;
+		<span class="hljs-keyword">return</span>;
+	}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flag==<span class="hljs-number">1</span>){
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=a[<span class="hljs-number">0</span>];i++){
+			<span class="hljs-keyword">if</span>(a[i]&lt;b[i]){
+				a[i]+=<span class="hljs-number">10</span>;
+				a[i+<span class="hljs-number">1</span>]--; 
+			}
+			a[i]-=b[i];
+		}
+		<span class="hljs-keyword">while</span>(a[<span class="hljs-number">0</span>]&gt;<span class="hljs-number">0</span>&amp;&amp;a[a[<span class="hljs-number">0</span>]]==<span class="hljs-number">0</span>){
+			a[<span class="hljs-number">0</span>]--;
+		}
+		<span class="hljs-keyword">return</span>;
+	}
+} 
+
+<span class="hljs-comment">//输出函数</span>
+<span class="hljs-type">void</span> <span class="hljs-title function_">print</span><span class="hljs-params">(<span class="hljs-type">int</span> a[])</span>{
+	<span class="hljs-keyword">if</span>(a[<span class="hljs-number">0</span>]==<span class="hljs-number">0</span>){
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-number">0</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span>;
+	}<span class="hljs-keyword">else</span>{
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=a[<span class="hljs-number">0</span>];i&gt;=<span class="hljs-number">1</span>;i--){
+			<span class="hljs-built_in">cout</span>&lt;&lt;a[i];
+		} 
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span>;
+	} 
+} 
+
+<span class="hljs-type">void</span> <span class="hljs-title function_">chugao</span><span class="hljs-params">(<span class="hljs-type">int</span> a[],<span class="hljs-type">int</span> b[],<span class="hljs-type">int</span> c[])</span>
+{
+	<span class="hljs-type">int</span> temp[<span class="hljs-number">1001</span>]; <span class="hljs-comment">//临时数组</span>
+	c[<span class="hljs-number">0</span>]=a[<span class="hljs-number">0</span>]-b[<span class="hljs-number">0</span>]+<span class="hljs-number">1</span>; <span class="hljs-comment">//除完结果的最大长度 </span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=c[<span class="hljs-number">0</span>];i&gt;<span class="hljs-number">0</span>;i--){
+		<span class="hljs-built_in">memset</span>(temp,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(temp)); <span class="hljs-comment">//temp数组整个初始化为0 </span>
+		numcpy(b,temp,i);<span class="hljs-comment">//b数组的值赋值给temp数组，从第i位开始 </span>
+		<span class="hljs-keyword">while</span>(compare(a,temp)&gt;=<span class="hljs-number">0</span>){ <span class="hljs-comment">//a&gt;temp 返回1，a&lt;temp返回-1 a==temp返回0 </span>
+			c[i]++; <span class="hljs-comment">// </span>
+			jian(a,temp);  <span class="hljs-comment">//a数组减去temp数组 </span>
+		}
+	} 
+	<span class="hljs-keyword">while</span>(c[<span class="hljs-number">0</span>]&gt;<span class="hljs-number">0</span> &amp;&amp; c[c[<span class="hljs-number">0</span>]]==<span class="hljs-number">0</span>) {
+		c[<span class="hljs-number">0</span>]--;
+	}
+	<span class="hljs-keyword">return</span>;
+ } 
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-built_in">memset</span>(a,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(a));
+	<span class="hljs-built_in">memset</span>(b,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(b));
+	<span class="hljs-built_in">memset</span>(c,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(c));
+	init(a);
+	init(b);
+	chugao(a,b,c);
+	print(c);
+	print(a); 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="5e6af94e8be83e9ab98e7b2bee5baa6e695b0e79a84e5a4a7e5b08fe7a4bae4be8b_10"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="5e6af94e8be83e9ab98e7b2bee5baa6e695b0e79a84e5a4a7e5b08fe7a4bae4be8b_10" class="blank_anchor_name"></a><a id="5e6af94e8be83e9ab98e7b2bee5baa6e695b0e79a84e5a4a7e5b08fe7a4bae4be8b_10" class="blank_anchor_id"></a><a name="5比较高精度数的大小示例" class="blank_anchor_name"></a><a id="5比较高精度数的大小示例" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">5.比较高精度数的大小(示例)</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;cstring&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-comment">//比较两个高精度数的大小 </span>
+	<span class="hljs-type">char</span> a1[<span class="hljs-number">1000</span>],b1[<span class="hljs-number">1000</span>];
+	<span class="hljs-comment">//1.输入两个高精度数</span>
+	<span class="hljs-built_in">cin</span>&gt;&gt;a1&gt;&gt;b1; <span class="hljs-comment">//下标为0存最高位 </span>
+	<span class="hljs-comment">//2.计算两个高精度数的长度</span>
+	<span class="hljs-type">int</span> lena=<span class="hljs-built_in">strlen</span>(a1); 
+	<span class="hljs-type">int</span> lenb=<span class="hljs-built_in">strlen</span>(b1);
+	<span class="hljs-comment">//3.比较大小</span>
+	<span class="hljs-type">int</span> flag=<span class="hljs-number">0</span>;<span class="hljs-comment">//0等于  1 a1&gt;b1    -1 a1&lt;b1</span>
+	<span class="hljs-keyword">if</span>(lena&gt;lenb){
+		flag=<span class="hljs-number">1</span>;
+	} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(lena&lt;lenb){
+		flag=<span class="hljs-number">-1</span>;
+	} <span class="hljs-keyword">else</span>{
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;lena;i++) {
+			<span class="hljs-keyword">if</span>(a1[i] &gt; b1[i]){
+				flag=<span class="hljs-number">1</span>;
+				<span class="hljs-keyword">break</span>;
+			}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a1[i] &lt; b1[i]){
+				flag=<span class="hljs-number">-1</span>;
+				<span class="hljs-keyword">break</span>;
+			} 
+		}
+	}
+	<span class="hljs-keyword">if</span>(flag==<span class="hljs-number">0</span>)  <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"相等"</span>;
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flag==<span class="hljs-number">1</span>)  <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"第一个数大"</span>;
+	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(flag==<span class="hljs-number">-1</span>)  <span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-string">"第二个数大"</span>; 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+} 
+</code></pre></div>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e4ba8ce38081e68e92e5ba8fe7ae97e6b395_11"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4ba8ce38081e68e92e5ba8fe7ae97e6b395_11" class="blank_anchor_name"></a><a id="e4ba8ce38081e68e92e5ba8fe7ae97e6b395_11" class="blank_anchor_id"></a><a name="二-排序算法" class="blank_anchor_name"></a><a id="二-排序算法" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">二、排序算法</span></h1>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="1e58692e6b3a1e68e92e5ba8f_12"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="1e58692e6b3a1e68e92e5ba8f_12" class="blank_anchor_name"></a><a id="1e58692e6b3a1e68e92e5ba8f_12" class="blank_anchor_id"></a><a name="1冒泡排序" class="blank_anchor_name"></a><a id="1冒泡排序" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">1.冒泡排序</span></h2>
+<p class="xsj_paragraph xsj_paragraph_level_0">算法说明：冒泡排序就是重复从序列左边开始比较相邻两个数字的大小，再根据结交换两个数字的位置”这一操作的算法。在这个过程中，数字会像泡泡一样，慢慢从左往右“浮”到序列的顶端，所以这个算法才被称为“冒泡排序”。</p>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> a[<span class="hljs-number">114514</span>],n;
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-built_in">cin</span>&gt;&gt;n;
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){  <span class="hljs-comment">//将排序的数放到数组 </span>
+		<span class="hljs-built_in">cin</span>&gt;&gt;a[i];
+	} 
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = n - <span class="hljs-number">1</span>;i &gt;= <span class="hljs-number">1</span>;i--){  <span class="hljs-comment">//进行n-1次 </span>
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j = <span class="hljs-number">1</span>;i &lt;= i;j++){  <span class="hljs-comment">//每轮进行i次的比较 </span>
+			<span class="hljs-keyword">if</span>(a[j] &gt; a[j + <span class="hljs-number">1</span>]){
+				swap(a[j],a[j + <span class="hljs-number">1</span>]);
+			} 
+		} 
+	}
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){  <span class="hljs-comment">//输出 </span>
+		<span class="hljs-built_in">cout</span>&lt;&lt;a[i];
+	} 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+} </code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="2e6a1b6e68e92e5ba8f_13"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="2e6a1b6e68e92e5ba8f_13" class="blank_anchor_name"></a><a id="2e6a1b6e68e92e5ba8f_13" class="blank_anchor_id"></a><a name="2桶排序" class="blank_anchor_name"></a><a id="2桶排序" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">2.桶排序</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> a[<span class="hljs-number">11</span>];  <span class="hljs-comment">//准备10个桶</span>
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-built_in">memset</span>(a,<span class="hljs-number">0</span>,<span class="hljs-keyword">sizeof</span>(a));  <span class="hljs-comment">//将数组初始化为0 </span>
+	<span class="hljs-type">int</span> n,temp;
+	<span class="hljs-built_in">cin</span>&gt;&gt;n;
+	
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++) {
+		<span class="hljs-built_in">cin</span>&gt;&gt;temp;
+		a[temp]++;  <span class="hljs-comment">//统计出现的次数 </span>
+	}
+
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=<span class="hljs-number">10</span>;i++){
+		<span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">" "</span>;
+	}  
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="3stlefbc9fefbc81efbc81efbc81efbc81_14"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="3stlefbc9fefbc81efbc81efbc81efbc81_14" class="blank_anchor_name"></a><a id="3stlefbc9fefbc81efbc81efbc81efbc81_14" class="blank_anchor_id"></a><a name="3stl" class="blank_anchor_name"></a><a id="3stl" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">3.STL？！！！！</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> int long long</span>
+<span class="hljs-type">int</span> n,a[<span class="hljs-number">100001</span>];
+<span class="hljs-type">signed</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-built_in">cin</span>&gt;&gt;n;
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++) <span class="hljs-built_in">cin</span>&gt;&gt;a[i];
+	sort(a+<span class="hljs-number">1</span>,a+n+<span class="hljs-number">1</span>);
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++) <span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">' '</span>; 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="4e5bfabe9809fe68e92e5ba8f_15"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="4e5bfabe9809fe68e92e5ba8f_15" class="blank_anchor_name"></a><a id="4e5bfabe9809fe68e92e5ba8f_15" class="blank_anchor_id"></a><a name="4快速排序" class="blank_anchor_name"></a><a id="4快速排序" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">4.快速排序</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-meta">#<span class="hljs-keyword">define</span> int long long</span>
+<span class="hljs-type">int</span> n,a[<span class="hljs-number">100001</span>],b[<span class="hljs-number">100001</span>],c[<span class="hljs-number">100001</span>],d[<span class="hljs-number">100001</span>];
+<span class="hljs-type">void</span> <span class="hljs-title function_">quick_sort</span><span class="hljs-params">(<span class="hljs-type">int</span> l,<span class="hljs-type">int</span> r)</span>{
+	<span class="hljs-keyword">if</span> (l&gt;=r) <span class="hljs-keyword">return</span>;
+	<span class="hljs-type">int</span> mid=rand()%(r-l+<span class="hljs-number">1</span>)+l;<span class="hljs-comment">//This value is random.</span>
+	<span class="hljs-type">int</span> tb=<span class="hljs-number">0</span>,tc=<span class="hljs-number">0</span>,td=<span class="hljs-number">0</span>;<span class="hljs-comment">//b is smaller than a[mid],c is bigger than it,d is the same of it.</span>
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=l;i&lt;=r;i++){
+		<span class="hljs-keyword">if</span> (a[i]&lt;a[mid]) b[++tb]=a[i];
+		<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (a[i]&gt;a[mid]) c[++tc]=a[i];
+		<span class="hljs-keyword">else</span> d[++td]=a[i];
+	}
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=tb;i++) a[l+i<span class="hljs-number">-1</span>]=b[i];
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=td;i++) a[l+i<span class="hljs-number">-1</span>+tb]=d[i];
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=tc;i++) a[l+i<span class="hljs-number">-1</span>+tb+td]=c[i];
+	quick_sort(l,l+tb<span class="hljs-number">-1</span>);
+	quick_sort(l+tb+td,r);
+}
+<span class="hljs-type">signed</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	srand((<span class="hljs-type">int</span>)time(<span class="hljs-number">0</span>));
+	<span class="hljs-built_in">cin</span>&gt;&gt;n;
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++) <span class="hljs-built_in">cin</span>&gt;&gt;a[i];
+	quick_sort(<span class="hljs-number">1</span>,n);
+	<span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++) <span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">' '</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e59b9be38081e98092e5bd92e6ada4e5a484e58faae5b195e7a4bae4b880e4ba9be7bb8fe585b8e4be8be5ad90_16"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e59b9be38081e98092e5bd92e6ada4e5a484e58faae5b195e7a4bae4b880e4ba9be7bb8fe585b8e4be8be5ad90_16" class="blank_anchor_name"></a><a id="e59b9be38081e98092e5bd92e6ada4e5a484e58faae5b195e7a4bae4b880e4ba9be7bb8fe585b8e4be8be5ad90_16" class="blank_anchor_id"></a><a name="四-递归此处只展示一些经典例子" class="blank_anchor_name"></a><a id="四-递归此处只展示一些经典例子" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">四、递归(此处只展示一些经典例子)</span></h1>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="1e69c80e5a4a7e585ace7baa6e695b0e4b88ee69c80e5b08fe585ace5808de695b0_17"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="1e69c80e5a4a7e585ace7baa6e695b0e4b88ee69c80e5b08fe585ace5808de695b0_17" class="blank_anchor_name"></a><a id="1e69c80e5a4a7e585ace7baa6e695b0e4b88ee69c80e5b08fe585ace5808de695b0_17" class="blank_anchor_id"></a><a name="1最大公约数与最小公倍数" class="blank_anchor_name"></a><a id="1最大公约数与最小公倍数" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">1.最大公约数与最小公倍数</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+
+<span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title function_">gcd</span><span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> a, <span class="hljs-type">long</span> <span class="hljs-type">long</span> b)</span> { <span class="hljs-comment">// 定义最大公约数计算函数（使用辗转相除法）</span>
+    <span class="hljs-keyword">if</span> (b == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> a; <span class="hljs-comment">// 当b为0时，a即为最大公约数</span>
+    <span class="hljs-keyword">return</span> gcd(b, a % b); <span class="hljs-comment">// 递归调用gcd函数，将a替换为b，b替换为a除以b的余数</span>
+}
+
+<span class="hljs-type">long</span> <span class="hljs-type">long</span> <span class="hljs-title function_">lcm</span><span class="hljs-params">(<span class="hljs-type">long</span> <span class="hljs-type">long</span> a, <span class="hljs-type">long</span> <span class="hljs-type">long</span> b)</span> { <span class="hljs-comment">// 定义最小公倍数计算函数（根据公式：两数乘积除以它们的最大公约数于最小公倍数）</span>
+    <span class="hljs-keyword">return</span> a * b / gcd(a, b); <span class="hljs-comment">// 返回两数乘积除以其最大公约数的结果</span>
+}
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> {
+    <span class="hljs-type">long</span> <span class="hljs-type">long</span> a, b; <span class="hljs-comment">// 读取两个整数a和b</span>
+    <span class="hljs-built_in">cin</span> &gt;&gt; a &gt;&gt; b;
+    <span class="hljs-built_in">cout</span> &lt;&lt; gcd(a, b) &lt;&lt; <span class="hljs-string">" "</span> &lt;&lt; lcm(a, b); <span class="hljs-comment">// 计算并输出最大公约数和最小公倍数，两者之间用空格分隔</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre></div>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e4ba94e38081e98092e68ea8dpe58aa8e68081e8a784e58892efbc8ce5928ce4b88ae99da2e4b880e6a0b7efbc8ce58faae58897e4b8bee4b880e4ba9be4be8be5ad90_18"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4ba94e38081e98092e68ea8dpe58aa8e68081e8a784e58892efbc8ce5928ce4b88ae99da2e4b880e6a0b7efbc8ce58faae58897e4b8bee4b880e4ba9be4be8be5ad90_18" class="blank_anchor_name"></a><a id="e4ba94e38081e98092e68ea8dpe58aa8e68081e8a784e58892efbc8ce5928ce4b88ae99da2e4b880e6a0b7efbc8ce58faae58897e4b8bee4b880e4ba9be4be8be5ad90_18" class="blank_anchor_id"></a><a name="五-递推dp动态规划和上面一样只列举一些例子" class="blank_anchor_name"></a><a id="五-递推dp动态规划和上面一样只列举一些例子" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">五、递推(DP动态规划，和上面一样，只列举一些例子)</span></h1>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="1e6b49be8b0b7p1255e28094e28094e695b0e6a5bce6a2afe4b88de88083e89991e9ab98e7b2bee5baa6_19"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="1e6b49be8b0b7p1255e28094e28094e695b0e6a5bce6a2afe4b88de88083e89991e9ab98e7b2bee5baa6_19" class="blank_anchor_name"></a><a id="1e6b49be8b0b7p1255e28094e28094e695b0e6a5bce6a2afe4b88de88083e89991e9ab98e7b2bee5baa6_19" class="blank_anchor_id"></a><a name="1洛谷p1255数楼梯不考虑高精度" class="blank_anchor_name"></a><a id="1洛谷p1255数楼梯不考虑高精度" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">1.洛谷P1255——数楼梯(不考虑高精度)</span></h2>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> x;
+	<span class="hljs-built_in">cin</span>&gt;&gt;x;
+	<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-type">long</span> a[x+<span class="hljs-number">1</span>];
+    a[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;
+	a[<span class="hljs-number">1</span>]=<span class="hljs-number">1</span>;
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">2</span>;i&lt;=x+<span class="hljs-number">1</span>;++i){
+		a[i]=a[i<span class="hljs-number">-1</span>]+a[i<span class="hljs-number">-2</span>];  <span class="hljs-comment">//DP状态转移方程</span>
+	} 
+	<span class="hljs-keyword">if</span>(x==<span class="hljs-number">0</span>){
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-number">0</span>;<span class="hljs-comment">//特判 不然90</span>
+	} 
+    <span class="hljs-keyword">else</span>{
+		<span class="hljs-built_in">cout</span>&lt;&lt;a[x+<span class="hljs-number">1</span>];
+	} 
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}</code></pre></div>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="6e6909ce7b4a2e4b88ee59b9ee6baaf_20"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="6e6909ce7b4a2e4b88ee59b9ee6baaf_20" class="blank_anchor_name"></a><a id="6e6909ce7b4a2e4b88ee59b9ee6baaf_20" class="blank_anchor_id"></a><a name="6搜索与回溯" class="blank_anchor_name"></a><a id="6搜索与回溯" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">6.搜索与回溯</span></h1>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="1dfse6b7b1e5baa6e4bc98e58588e6909ce7b4a2_21"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="1dfse6b7b1e5baa6e4bc98e58588e6909ce7b4a2_21" class="blank_anchor_name"></a><a id="1dfse6b7b1e5baa6e4bc98e58588e6909ce7b4a2_21" class="blank_anchor_id"></a><a name="1dfs深度优先搜索" class="blank_anchor_name"></a><a id="1dfs深度优先搜索" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">1.DFS(深度优先搜索)</span></h2>
+<p class="xsj_paragraph xsj_paragraph_level_0">例：</p>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="language-c++ hljs language-c" data-info="c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;bits/stdc++.h&gt;</span></span>
+using namespace <span class="hljs-built_in">std</span>;
+
+<span class="hljs-type">int</span> a[<span class="hljs-number">10</span>],book[<span class="hljs-number">10</span>],n;
+<span class="hljs-comment">//dfs(Depth First Search，深度优先搜索 </span>
+<span class="hljs-type">void</span> <span class="hljs-title function_">dfs</span><span class="hljs-params">(<span class="hljs-type">int</span> step)</span>{   <span class="hljs-comment">//Step表示站在第几个盒子面前 </span>
+	<span class="hljs-type">int</span> i; 
+	<span class="hljs-keyword">if</span>(step == n + <span class="hljs-number">1</span>){
+	<span class="hljs-comment">/*
+	第十三行的解释：
+		如果站第n+1个盒子当中，则表示前n个盒子已经放好牌 
+		step == n + 1 可以替换成 step &gt; n 
+	*/</span>
+	
+		<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){
+			<span class="hljs-built_in">cout</span>&lt;&lt;a[i];
+		} 
+		<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+		<span class="hljs-keyword">return</span>;  <span class="hljs-comment">//返回之前的一步(最近一次调用Dfs函数的地方) </span>
+	}
+	
+	<span class="hljs-comment">/*
+	此时站在第step个盒子前面，应该放那张牌呢？
+	按照1、2、3......n的顺序一一尝试
+	*/</span>
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>;i &lt;= n;i++){
+		<span class="hljs-comment">//判牌i是否还在手上</span>
+		<span class="hljs-keyword">if</span>(book[i] == <span class="hljs-number">0</span>){  <span class="hljs-comment">//book[i] = 0表示i号扑克牌在手上 </span>
+			<span class="hljs-comment">//开始尝试使用牌</span>
+			a[step] = i;  <span class="hljs-comment">//将i号牌放到step号盒子里 </span>
+			book[i] = i;  <span class="hljs-comment">//将book[i]设置为1，表示i号牌不在手上 </span>
+			<span class="hljs-comment">//第step个盒子已经放好扑克牌，接下来要走到下一个盒子面前</span>
+			dfs(step + <span class="hljs-number">1</span>);  <span class="hljs-comment">//通过递归来调用自己</span>
+			book[<span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;    <span class="hljs-comment">//这是非常重要的一步，一定要将刚才的牌收回，才可以进行下一次尝试 </span>
+		} 
+	} 
+	 
+	
+
+} 
+
+<span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span>{
+	<span class="hljs-type">int</span> n;
+	<span class="hljs-built_in">cin</span>&gt;&gt;n;  <span class="hljs-comment">//注意n是1-9之间的整数</span>
+	dfs(<span class="hljs-number">1</span>);  <span class="hljs-comment">//首先站到一号盒子面前 </span>
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre></div>
+</div>
+
+</div></div>
+</body></html>
+

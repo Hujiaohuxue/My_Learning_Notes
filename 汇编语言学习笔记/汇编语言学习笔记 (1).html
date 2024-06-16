@@ -1,0 +1,1803 @@
+<!DOCTYPE html><html lang="en"><head>
+<title> 汇编语言学习笔记</title>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+#wmd-preview{
+  max-width: 210mm;
+  margin: 0 auto;
+}
+/* normal start */
+body {
+  font-family: 'Helvetica Neue', Helvetica, Tahoma, Arial, 'Hiragino Sans GB', STHeiti, "Microsoft YaHei", "微软雅黑", 'WenQuanYi Micro Hei', STXihei, "华文细黑", Heiti, "黑体", SimSun, "宋体", Song, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  font-weight: normal;
+  color: #2f2f2f;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+
+/* link start */
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+a:hover,
+a:active {
+  outline: 0;
+}
+a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #005580;
+  text-decoration: underline;
+}
+/* link end */
+
+
+/* head start */
+h1,h2,h3,h4,h5,h6 {
+  font-weight: bold;
+  text-rendering: optimizelegibility;
+}
+
+h1 {
+  font-size: 2rem;;
+  margin: .8em 0 .6em 0;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: .7em 0 .5em 0;
+}
+
+h3 {
+  font-size: 1.17rem;
+  margin: .6em 0 .4em 0;
+}
+
+h4 {
+  margin: .5em 0 .3em 0;
+}
+
+video {
+  max-width: 100%;
+}
+
+h5 {
+  font-size: 0.83rem;
+  margin: .5em 0 .3em 0;
+}
+
+h6 {
+  font-size: 0.67rem;
+  margin: .5em 0 .3em 0;
+}
+/* head end */
+
+.xsj_hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px dashed #2f2f2f;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+}
+
+p {
+    margin: 1.1em 0 1.6em;
+}
+
+pre{
+    line-height: initial !important;
+    word-wrap: break-word;
+    word-break: break-word;
+    tab-size: 4;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+
+kbd{
+    display: inline-block;
+    padding: 3px 5px;
+    font-size: 11px;
+    line-height: 10px;
+    color: #2f2f2f;
+    vertical-align: middle;
+    background: #fcfcfc;
+    border: solid 1px #2f2f2f;
+    border-bottom-color: #2f2f2f;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #2f2f2f;
+}
+
+address {
+  display: block;
+  margin-bottom: 20px;
+  font-style: normal;
+  line-height: 20px;
+}
+
+
+small {
+  font-size: 85%;
+}
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+cite {
+  font-style: normal;
+}
+
+
+/* list start */
+ul,ol {
+  padding: 0;
+  margin: 1.1em 0 1.1em 3em;
+}
+
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 1em;
+}
+/* list end */
+
+dl {
+  margin-bottom: 20px;
+}
+
+dt,
+dd {
+  line-height: 20px;
+}
+
+dt {
+  font-weight: bold;
+  line-height: 1.35em;
+}
+
+dd {
+  margin-left: 10px;
+  line-height: 1.35em;
+}
+abbr[title],
+abbr[data-original-title] {
+  cursor: help;
+  border-bottom: 1px dotted #999999;
+}
+
+/* normal end */
+
+
+/* blockquote start */
+blockquote {
+  padding: 20px 20px;
+  margin: 20px 0 20px;
+  border-left: 5px solid rgba(153, 153, 153, 0.2);
+  background: rgba(204, 204, 204, 0.2);
+}
+
+blockquote p {
+    margin: 1.1em 0 1.1em;
+}
+
+blockquote>ol.markdown_ol, blockquote>ul.markdown_ul{
+  margin-left: 1.1em;
+}
+
+blockquote>*:first-child {
+  margin-top: 0;
+}
+
+blockquote>*:last-child {
+  margin-bottom: 0;
+}
+
+blockquote small {
+  display: block;
+  line-height: 20px;
+  color: #999999;
+}
+
+blockquote small:before {
+  content: '\2014 \00A0';
+}
+
+blockquote footer{
+    margin: 1em 0;
+    font-style: italic;
+}
+
+blockquote footer cite {
+    margin: 0 1em;
+}
+
+/* blockquote end */
+
+/**
+ * Treeview syntax highlighting based on highlight.js
+ * Copyright (c) 2014-2015, Asciidocfx Team, (MIT Licensed)
+ * https://github.com/asciidocfx/highlight-treeview.js
+ */
+.language-treeview.hljs{
+  position: relative;
+}
+.hljs-folder,
+.hljs-hiddenfile,
+.hljs-file {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    height: 16px;
+}
+.hljs-folder:before,
+.hljs-file:before,
+.hljs-hiddenfile:before {
+    top: 0;
+    content: '';
+    width: 14px;
+    height: 12px;
+    margin-top: 0px;
+    margin-right: 3px;
+    position: relative;
+    display: inline-block;
+    background-size: 14px;
+    background-repeat: no-repeat;
+}
+.hljs-file:before,
+.hljs-hiddenfile:before {
+    height: 14px;
+    margin-left: 1px;
+}
+.hljs-hiddenfile {
+    opacity: 0.6;
+}
+.hljs-file.photo:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c5";
+}
+.hljs-file.plain:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f016";
+}
+.hljs-file.source:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c9";
+}
+.hljs-file.archive:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c6";
+}
+.hljs-file.audio:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c7";
+}
+.hljs-file.video:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c8";
+}
+.hljs-file.pdf:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c1";
+}
+.hljs-file.xls:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c3";
+}
+.hljs-file.doc:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c2";
+}
+.hljs-file.ppt:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f1c4";
+}
+.hljs-folder:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f114";
+}
+.hljs-hiddenfile:before {
+    font: normal normal normal 14px/1 FontAwesome;
+    content: "\f016";
+}
+.hljs-tvline {
+    margin-left: 6px;
+    position: absolute;
+    text-indent: -99em;
+    padding-bottom: 8px;
+    vertical-align: top;
+    display: inline-block;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(94, 144, 117);
+}
+.hljs-folder-branch {
+    width: 8px;
+    height: 8px;
+    margin-top: -1px;
+    margin-left: 6px;
+    text-indent: -99em;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(94, 144, 117);
+}
+.hljs-folder-branch.win {
+    width: 14px;
+    margin-right: 2px;
+}
+.hljs-folder-last-branch {
+    height: 7px;
+    width: 7px;
+    margin-left: 6px;
+    text-indent: -99em;
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(94, 144, 117);
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgb(94, 144, 117);
+}
+.hljs-folder-last-branch.win {
+    width: 13px;
+    margin-right: 2px;
+}
+
+
+/**
+ * Treeview syntax highlighting based on highlight.js
+ */
+
+/*wavedrom start*/
+
+.wavedrom_svg text, .wavedrom_svg_defs text {
+    font-size:11pt;
+    font-style:normal;
+    font-variant:normal;
+    font-weight:normal;
+    font-stretch:normal;
+    text-align:center;
+    fill-opacity:1;
+    font-family:Helvetica
+}
+.wavedrom_svg .muted, .wavedrom_svg_defs .muted {
+    fill:#aaa
+}
+.wavedrom_svg .warning, .wavedrom_svg_defs .warning {
+    fill:#f6b900
+}
+.wavedrom_svg .error, .wavedrom_svg_defs .error {
+    fill:#f60000
+}
+.wavedrom_svg .info, .wavedrom_svg_defs .info {
+    fill:#0041c4
+}
+.wavedrom_svg .success, .wavedrom_svg_defs .success {
+    fill:#00ab00
+}
+.wavedrom_svg .h1, .wavedrom_svg_defs .h1 {
+    font-size:33pt;
+    font-weight:bold
+}
+.wavedrom_svg .h2, .wavedrom_svg_defs .h2 {
+    font-size:27pt;
+    font-weight:bold
+}
+.wavedrom_svg .h3, .wavedrom_svg_defs .h3 {
+    font-size:20pt;
+    font-weight:bold
+}
+.wavedrom_svg .h4, .wavedrom_svg_defs .h4 {
+    font-size:14pt;
+    font-weight:bold
+}
+.wavedrom_svg .h5, .wavedrom_svg_defs .h5 {
+    font-size:11pt;
+    font-weight:bold
+}
+.wavedrom_svg .h6, .wavedrom_svg_defs .h6 {
+    font-size:8pt;
+    font-weight:bold
+}
+.wavedrom_svg_defs .s1 {
+    fill:none;
+    stroke:#000;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none
+}
+.wavedrom_svg_defs .s2 {
+    fill:none;
+    stroke:#000;
+    stroke-width:0.5;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none
+}
+.wavedrom_svg_defs .s3 {
+    color:#000;
+    fill:none;
+    stroke:#000;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:1,3;
+    stroke-dashoffset:0;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s4 {
+    color:#000;
+    fill:none;
+    stroke:#000;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none;
+    stroke-dashoffset:0;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible
+}
+.wavedrom_svg_defs .s5 {
+    fill:#fff;
+    stroke:none
+}
+.wavedrom_svg_defs .s6 {
+    color:#000;
+    fill:#ffffb4;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s7 {
+    color:#000;
+    fill:#ffe0b9;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s8 {
+    color:#000;
+    fill:#b9e0ff;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s9 {
+    fill:#000;
+    fill-opacity:1;
+    stroke:none
+}
+.wavedrom_svg_defs .s10 {
+    color:#000;
+    fill:#fff;
+    fill-opacity:1;
+    fill-rule:nonzero;
+    stroke:none;
+    stroke-width:1px;
+    marker:none;
+    visibility:visible;
+    display:inline;
+    overflow:visible;
+    enable-background:accumulate
+}
+.wavedrom_svg_defs .s11 {
+    fill:#0041c4;
+    fill-opacity:1;
+    stroke:none
+}
+.wavedrom_svg_defs .s12 {
+    fill:none;
+    stroke:#0041c4;
+    stroke-width:1;
+    stroke-linecap:round;
+    stroke-linejoin:miter;
+    stroke-miterlimit:4;
+    stroke-opacity:1;
+    stroke-dasharray:none
+}
+
+/*wavedrom stop*/
+
+
+/* fontawesome */
+
+/*!
+ * Font Awesome Free 5.7.1 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+svg:not(:root).svg-inline--fa {
+  overflow: visible; }
+
+.svg-inline--fa {
+  display: inline-block;
+  font-size: inherit;
+  height: 1em;
+  overflow: visible;
+  vertical-align: -.125em; }
+  .svg-inline--fa.fa-lg {
+    vertical-align: -.225em; }
+  .svg-inline--fa.fa-w-1 {
+    width: 0.0625em; }
+  .svg-inline--fa.fa-w-2 {
+    width: 0.125em; }
+  .svg-inline--fa.fa-w-3 {
+    width: 0.1875em; }
+  .svg-inline--fa.fa-w-4 {
+    width: 0.25em; }
+  .svg-inline--fa.fa-w-5 {
+    width: 0.3125em; }
+  .svg-inline--fa.fa-w-6 {
+    width: 0.375em; }
+  .svg-inline--fa.fa-w-7 {
+    width: 0.4375em; }
+  .svg-inline--fa.fa-w-8 {
+    width: 0.5em; }
+  .svg-inline--fa.fa-w-9 {
+    width: 0.5625em; }
+  .svg-inline--fa.fa-w-10 {
+    width: 0.625em; }
+  .svg-inline--fa.fa-w-11 {
+    width: 0.6875em; }
+  .svg-inline--fa.fa-w-12 {
+    width: 0.75em; }
+  .svg-inline--fa.fa-w-13 {
+    width: 0.8125em; }
+  .svg-inline--fa.fa-w-14 {
+    width: 0.875em; }
+  .svg-inline--fa.fa-w-15 {
+    width: 0.9375em; }
+  .svg-inline--fa.fa-w-16 {
+    width: 1em; }
+  .svg-inline--fa.fa-w-17 {
+    width: 1.0625em; }
+  .svg-inline--fa.fa-w-18 {
+    width: 1.125em; }
+  .svg-inline--fa.fa-w-19 {
+    width: 1.1875em; }
+  .svg-inline--fa.fa-w-20 {
+    width: 1.25em; }
+  .svg-inline--fa.fa-pull-left {
+    margin-right: .3em;
+    width: auto; }
+  .svg-inline--fa.fa-pull-right {
+    margin-left: .3em;
+    width: auto; }
+  .svg-inline--fa.fa-border {
+    height: 1.5em; }
+  .svg-inline--fa.fa-li {
+    width: 2em; }
+  .svg-inline--fa.fa-fw {
+    width: 1.25em; }
+
+.fa-layers svg.svg-inline--fa {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -.125em;
+  width: 1em; }
+  .fa-layers svg.svg-inline--fa {
+    -webkit-transform-origin: center center;
+            transform-origin: center center; }
+
+.fa-layers-text, .fa-layers-counter {
+  display: inline-block;
+  position: absolute;
+  text-align: center; }
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  -webkit-transform-origin: center center;
+          transform-origin: center center; }
+
+.fa-layers-counter {
+  background-color: #ff253a;
+  border-radius: 1em;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
+  height: 1.5em;
+  line-height: 1;
+  max-width: 5em;
+  min-width: 1.5em;
+  overflow: hidden;
+  padding: .25em;
+  right: 0;
+  text-overflow: ellipsis;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right; }
+
+.fa-layers-bottom-right {
+  bottom: 0;
+  right: 0;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom right;
+          transform-origin: bottom right; }
+
+.fa-layers-bottom-left {
+  bottom: 0;
+  left: 0;
+  right: auto;
+  top: auto;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: bottom left;
+          transform-origin: bottom left; }
+
+.fa-layers-top-right {
+  right: 0;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top right;
+          transform-origin: top right; }
+
+.fa-layers-top-left {
+  left: 0;
+  right: auto;
+  top: 0;
+  -webkit-transform: scale(0.25);
+          transform: scale(0.25);
+  -webkit-transform-origin: top left;
+          transform-origin: top left; }
+
+.fa-lg {
+  font-size: 1.33333em;
+  line-height: 0.75em;
+  vertical-align: -.0667em; }
+
+.fa-xs {
+  font-size: .75em; }
+
+.fa-sm {
+  font-size: .875em; }
+
+.fa-1x {
+  font-size: 1em; }
+
+.fa-2x {
+  font-size: 2em; }
+
+.fa-3x {
+  font-size: 3em; }
+
+.fa-4x {
+  font-size: 4em; }
+
+.fa-5x {
+  font-size: 5em; }
+
+.fa-6x {
+  font-size: 6em; }
+
+.fa-7x {
+  font-size: 7em; }
+
+.fa-8x {
+  font-size: 8em; }
+
+.fa-9x {
+  font-size: 9em; }
+
+.fa-10x {
+  font-size: 10em; }
+
+.fa-fw {
+  text-align: center;
+  width: 1.25em; }
+
+.fa-ul {
+  list-style-type: none;
+  margin-left: 2.5em;
+  padding-left: 0; }
+  .fa-ul > li {
+    position: relative; }
+
+.fa-li {
+  left: -2em;
+  position: absolute;
+  text-align: center;
+  width: 2em;
+  line-height: inherit; }
+
+.fa-border {
+  border: solid 0.08em #eee;
+  border-radius: .1em;
+  padding: .2em .25em .15em; }
+
+.fa-pull-left {
+  float: left; }
+
+.fa-pull-right {
+  float: right; }
+
+.far,.fa {
+  margin: 0 .3em;
+}
+.fa.fa-pull-left,
+.fas.fa-pull-left,
+.far.fa-pull-left,
+.fal.fa-pull-left,
+.fab.fa-pull-left {
+  margin-right: .3em; }
+
+.fa.fa-pull-right,
+.fas.fa-pull-right,
+.far.fa-pull-right,
+.fal.fa-pull-right,
+.fab.fa-pull-right {
+  margin-left: .3em; }
+
+.fa-spin {
+  -webkit-animation: fa-spin 2s infinite linear;
+          animation: fa-spin 2s infinite linear; }
+
+.fa-pulse {
+  -webkit-animation: fa-spin 1s infinite steps(8);
+          animation: fa-spin 1s infinite steps(8); }
+
+@-webkit-keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg); } }
+
+.fa-rotate-90 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg); }
+
+.fa-rotate-180 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg); }
+
+.fa-rotate-270 {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  -webkit-transform: rotate(270deg);
+          transform: rotate(270deg); }
+
+.fa-flip-horizontal {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  -webkit-transform: scale(-1, 1);
+          transform: scale(-1, 1); }
+
+.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(1, -1);
+          transform: scale(1, -1); }
+
+.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  -webkit-transform: scale(-1, -1);
+          transform: scale(-1, -1); }
+
+:root .fa-rotate-90,
+:root .fa-rotate-180,
+:root .fa-rotate-270,
+:root .fa-flip-horizontal,
+:root .fa-flip-vertical,
+:root .fa-flip-both {
+  -webkit-filter: none;
+          filter: none; }
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  position: relative;
+  width: 2.5em; }
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em; }
+
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em; }
+
+.fa-inverse {
+  color: #fff; }
+
+.sr-only {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px; }
+
+.sr-only-focusable:active, .sr-only-focusable:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  width: auto; }
+
+/* fontawesome end*/
+
+/* xsj patch start */
+
+.xsj_anchor{
+  overflow: hidden;
+  float: right;
+}
+
+.blank_anchor_id {
+    float: right;
+    width: 1px;
+    height: 0px;
+}
+.blank_anchor_id {
+    visibility: hidden;
+}
+.blank_anchor_id:before {
+    content: 'a';
+}
+.xsj_foreignObject{
+  width: 100%!important;
+  height: 100%!important;
+  text-align: initial;
+  word-spacing: normal;
+}
+.xsj_foreignObject hr{
+    margin: inherit;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject *{
+  font-size: inherit;
+}
+.xsj_export_pdf .xsj_foreignObject.xsj_drawio_foreignObject *{
+  font-size: 85%;
+}
+
+.xsj_export_pdf ins .mathjax .MathJax_SVG {
+    border-bottom: 2px solid;
+}
+
+.xsj_foreignObject.xsj_drawio_foreignObject h1{
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h2{
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h3{
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h4{
+  font-size: 1em;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h5{
+  font-size: .83em;
+  margin-block-start: 1.67em;
+  margin-block-end: 1.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+.xsj_foreignObject.xsj_drawio_foreignObject h6{
+  font-size: .67em;
+  margin-block-start: 2.33em;
+  margin-block-end: 2.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+/* xsj patch end */
+
+
+/* title start */
+h1.story_title {
+    font-size: 2.1rem;
+    margin: 0.7em 0;
+}
+/* title end */
+
+/* tag start */
+.story_tags {
+    margin: 0 0 1.2em;
+}
+.tag.label{
+    display: inline-block;
+    vertical-align: baseline;
+    line-height: 1;
+    margin: 0 0.5em 0.5em 0;
+    background: #e2e2e2;
+    border-color: #e2e2e2;
+    background-image: none;
+    padding: 0.6em 0.8em;
+    font-weight: bold;
+    border-radius: 0.2857rem;
+    box-sizing: border-box;
+    font-size: 12px;
+}
+/* tag end */
+
+/* emoji */
+img.emoji {
+    width: 1em;
+    line-height: 1em;
+    vertical-align: baseline;
+    margin-bottom: 0;
+}
+/* emoji */
+
+/* align grammar start*/
+
+.story_align_left, .story_align_left .story_image_container {
+    text-align: left;
+}
+.story_align_right, .story_align_right .story_image_container {
+    text-align: right;
+}
+.story_align_center, .story_align_center .story_image_container {
+    text-align: center;
+}
+.story_align_justify, .story_align_justify .story_image_container {
+    text-align: justify;
+}
+
+/* align grammar end*/
+
+/*mindmap start*/
+.mindmap_container {
+  text-align: center;
+}
+
+.xsj_mindmap_caption{
+   border-bottom: 1px solid #d9d9d9;
+  display: inline-block;
+  color: #999;
+  padding: 10px;
+}
+/*mindmap end*/
+
+
+
+/* table start*/
+
+table {
+  max-width: 100%;
+  background-color: transparent;
+  border-collapse: collapse;
+  border-spacing: 0;
+  word-break: initial;
+  border: 1px solid #d9d9da;
+}
+.table {
+  width: 100%;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  line-height: 20px;
+  text-align: left;
+  vertical-align: top;
+  border-top: 1px solid #d9d9da;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.table thead th {
+  vertical-align: bottom;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #d9d9da;
+}
+
+.table .table {
+  background-color: #ffffff;
+}
+
+
+.table-striped tbody > tr:nth-child(odd) > td,
+.table-striped tbody > tr:nth-child(odd) > th {
+  background-color: #f9f9f9;
+}
+
+.table-celled.table tr td,.table-celled.table tr th {
+    border-left: 1px solid #d9d9da;
+}
+
+/* table end*/
+
+/*code start*/
+
+code {
+    background-color: #F0F0F0;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: 0 .225em;
+    color: #880000;
+}
+body code{
+    border: 0;
+    border-radius: 4px;
+    font-size: .9em;
+}
+
+.hljs, .hljs * {
+  overflow: visible !important;
+} 
+
+body .xiaoshujiang_code {
+    border: 0;
+    border-radius: 4px;
+    font-size: .9em;
+}
+.xiaoshujiang_code ol{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.xiaoshujiang_pre {
+    line-height: initial !important;
+    word-wrap: break-word;
+    word-break: break-word;
+    tab-size: 4;
+    white-space: pre-wrap;
+    font-family: monospace;
+}
+.xiaoshujiang_code_container pre{
+    margin: 0px;
+}
+.xiaoshujiang_code_container.xiaoshujiang_code_chunk{
+    box-shadow: 0 0 0 1px #A3C293 inset,0 0 0 0 transparent;
+    margin: 1em 0;
+    padding: 1em;
+}
+.xiaoshujiang_code_container.xiaoshujiang_code_chunk_hide_code{
+    box-shadow: initial;
+    padding: initial;
+    padding-bottom: 2em;
+}
+.xiaoshujiang_code_container .out_put{
+    box-shadow: 0 0 0 1px #A3C293 inset,0 0 0 0 transparent;
+    margin: 1em 0;
+    background-color: #FCFFF5;
+    color: #2C662D;
+    padding: 1em;
+}
+.xiaoshujiang_code_container .out_put_error{
+    background-color: #FFF6F6;
+    color: #9F3A38;
+    margin: 1em 0;
+    box-shadow: 0 0 0 1px #E0B4B4 inset,0 0 0 0 transparent;
+    padding: 1em;
+}
+
+/*code end*/
+
+/* code line nums start*/
+
+code.hljs.code_linenums, .xiaoshujiang_code.hljs.code_linenums{
+    position: relative;
+}
+.ol_linenums{
+    padding: 0px;
+    margin-left: 2em;
+    border-left: 1px solid #e0e0e0;
+}
+.li_linenum{
+    position:relative;
+    margin-left: 0.5em;
+    list-style: none;
+    counter-increment: lines 1;
+}
+.li_linenum.li_list_style{
+    list-style: inherit;
+    margin-left: 5px;
+}
+.li_linenum:before, .li_linenum_before_span{
+    content: counter(lines, decimal);
+  position: absolute;
+  left: -3em;
+  text-align: center;
+  width: 2.5em;
+  vertical-align: top;
+}
+.li_linenum_before_span_hide{
+    display: none;
+}
+.xiaoshujiang_code .code_line_break_hack{
+    margin:0;
+    border:0;
+    border-top:0;
+    border-bottom:0;
+}
+.component_attachment, .code_line_break_hack{
+  display: none;
+  visibility: collapse!important;
+  height: 0!important;
+}
+
+/* code line nums end*/
+
+/* block code start */
+.xiaoshujiang_code_container {
+    margin: 1em 0px 2em;
+    position: relative;
+}
+
+
+.xiaoshujiang_code_title_container{
+    font-size: 50%;
+}
+.xiaoshujiang_code_title_container>.xiaoshujiang_code_infos{
+    float: right;
+}
+/* block code end */
+
+
+/*mark start*/
+
+.mark{
+  border: 0;
+  background-color: rgba(221, 243, 231, 0.4);
+  color: #105012;
+  padding: 2px 4px;
+}
+
+.mark_color_000000{
+  color: transparent!important;
+  background: initial!important;
+  border-bottom: 2px solid #3a4c42;
+  transition: color .6s;
+}
+
+.mark_color_000000:hover{
+  color: black!important;
+}
+
+.li_linenum.line_mark:before, .line_mark .li_linenum_before_span {
+    background: rgba(210, 118, 118, 0.6);
+}
+.line_mark{
+    border: 1px dashed #3A4C42;
+    margin-top: 2px;
+}
+code .mark, .xiaoshujiang_code .mark{
+    border-radius: 0px;
+    font-size: initial;
+    padding: initial;
+}
+/*mark end*/
+
+
+.xsj_code_strong{
+  -webkit-text-emphasis: triangle;
+  -webkit-text-emphasis-position: under;
+}
+
+/* attachment start */
+a.attachment{
+    background: #ecf0f3;
+    border: 1px solid #bec6cb;
+    display: inline-block;
+    padding: 0.6em;
+    margin: 0.5em 0.5em;
+    min-width: 250px;
+}
+a.attachment i.fa{
+    font-size: 3em;
+  float: left;
+  margin-right: 0.2em;
+}
+a.attachment .filename{
+    vertical-align: top;
+  text-align: left;
+  font-weight: bold;
+}
+a.attachment .filesize{
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  opacity: .6;
+  font-size: 80%;
+  white-space: nowrap;
+}
+/* attachment end */
+
+
+/*code chunk video, slideshare start*/
+.video_container{
+    width: 100%;
+    display: table;
+    text-align: center;
+    position: relative;
+    padding-bottom: 56.25%!important;
+}
+
+.video_container iframe{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    vertical-align: middle;
+}
+
+.slideshare_container .inner{
+    position: relative;
+    width: 100%;
+}
+
+.slideshare_container .inner iframe{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/*code chunk video, slideshare start*/
+
+
+
+/*mermaid start*/
+
+.mermaid {
+    text-align: center;
+}
+
+.mermaid_svg{
+    font-family: monospace;
+    text-align: initial;
+}
+.mermaid_svg foreignObject{
+  overflow: visible;
+}
+.mermaid_svg foreignObject i.fa{
+  min-width: 16px;
+}
+.mermaid_svg .svg-inline--fa,.mermaid_svg .svg-inline--fa path {
+    fill: initial!important;
+    stroke: initial!important;
+}
+
+.mermaid_svg .grid path {
+  stroke: transparent;
+}
+/*mermaid stop*/
+
+
+/* patch evernote start*/
+.toc ul {
+    list-style-type: none;
+}
+/* patch evernote end*/
+
+
+/* image start*/
+img {
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+    border: 0;
+}
+
+.story_image_container{
+    text-align: center;
+}
+.story_image_container>.story_image{
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+}
+.story_image_caption, .xsj_remote_html_caption {
+    border-bottom: 1px solid #d9d9d9;
+    display: inline-block;
+    color: #999;
+    padding: 10px;
+}
+.story_image_blank_caption, .xsj_remote_html_blank_caption{
+    display: none;
+}
+.story_image>img{
+    border-radius: 0.3125em;
+    box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);
+}
+
+.story_inline_image{
+  display: inline-block;
+}
+.story_inline_image>img{
+    vertical-align: bottom;
+}
+/* image end*/
+
+.story_remote_resource_block{
+    text-align: center;
+}
+
+/* task list start */
+.task-list-item{
+    list-style: none;
+}
+.task-list-item.li_list_style{
+    list-style:inherit;
+}
+.task-list-item > p {
+  margin: 0;
+}
+
+/* task list end */
+
+/* other start */
+em.cjk_emphasis{
+    font-style: normal;
+    font-family: Georgia,"Times New Roman",Times,"楷体","AR PL UKai CN", "NSimSun","Songti SC","SimSun",serif!important;
+}
+
+.flow-chart, .sequence-diagram{
+    text-align: center;
+}
+.plot, .plot-image{
+    text-align: center;
+    min-height: 200px;
+    min-width: 200px;
+}
+
+ins .mathjax .MathJax_SVG {
+    border-bottom: 1px solid;
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+}
+
+.mathjax-container{
+    text-align: center;
+    margin: 0 auto;
+}
+div.mathjax{
+    max-width: 100%;
+    margin: 0 auto;
+    font-size: 14px;
+}
+
+.mathjax-container .math_equation_table{
+  border: 0;
+  width: 100%;
+}
+.mathjax-container .math_equation_table td{
+  text-align: center;
+  vertical-align: top;
+}
+
+.xsj_export_pdf .fa-border {
+  border: none;
+  border-radius: initial;
+  padding: initial;
+  margin: 0 .25em;
+  outline-offset: .2em;
+  outline: 1px solid #eee;
+}
+.preview.html_preview{
+  max-width: 100%;
+}
+
+.xsj_export_pdf.preview.html_preview{
+  max-width: initial;
+  border: initial;
+  margin: initial;
+  padding: initial;
+  border-radius: initial;
+  box-shadow: initial;
+}
+/* other end */
+
+
+
+
+/* blockquote start*/
+/** only icon **/
+.html_preview>.markdown_blockquote{
+    position: relative;
+}
+.html_preview>.markdown_blockquote.markdown_blockquote_icon{
+    margin-left: 10px;
+}
+.html_preview>.markdown_blockquote>.xsj_paragraph:first-child>i:first-child{
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -18px;
+    line-height: 30px;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    font-size: 16px!important;
+    padding: 0;
+    border: 0px;
+
+}
+
+.html_preview>.markdown_blockquote>.xsj_paragraph:first-child>.svg-image:first-child,
+.html_preview>.markdown_blockquote>.xsj_paragraph:first-child>svg.svg-inline--fa:first-child {
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -15px;
+    line-height: 30px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    box-shadow: 0 0 0px 5px #dedede;
+    font-size: 16px!important;
+    padding: 0;
+    border: 0px;
+    outline: 0;
+    margin: 0;
+}
+/** only icon **/
+/** heading **/
+.html_preview > .markdown_blockquote.markdown_blockquote_heading {
+    margin-top: 40px;
+    page-break-inside: auto;
+}
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child {
+    display: block;
+    font-size: 1.4em;
+    background-color: #dedede;
+    padding: 0 15px;
+    margin: -20px;
+    position: relative;
+}
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child .xsj_heading_content>i:first-child {
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -16px;
+    top: .25em;
+    line-height: 30px;
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    font-size: 16px !important;
+    padding: 0;
+    border: 0px;
+}
+
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child .xsj_heading_content>.svg-image:first-child,
+.html_preview>.markdown_blockquote_heading>.xsj_heading:first-child .xsj_heading_content>svg.svg-inline--fa:first-child {
+    background-color: #dedede;
+    border-radius: 100%;
+    left: -15px;
+    top: .25em;
+    line-height: 30px;
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+    box-shadow: 0 0 0px 5px #dedede;
+    font-size: 16px!important;
+    padding: 0;
+    border: 0px;
+    outline: 0;
+    margin: 0;
+}
+
+/** heading **/
+/* blockquote end*/
+
+
+@media print{
+  body{
+    font-size: 18px;
+    word-wrap: break-word;
+    word-break: break-word;
+    background: initial!important;
+    font-kerning: normal;
+    text-rendering: geometricPrecision;
+  }
+  .preview.html_preview{
+    max-width: initial;
+    border: initial;
+    margin: initial;
+    padding: initial;
+    border-radius: initial;
+    box-shadow: initial;
+  }
+  .xiaoshujiang_element.xsj_anchor{
+    position: absolute;
+  }
+  tr { page-break-inside: avoid; }
+  .story_image_container{
+     page-break-inside: avoid;
+  }
+  blockquote{
+    page-break-inside: avoid;
+  }
+
+  .xsj_underline{
+      page-break-after: always;
+      visibility: hidden;
+  }
+}
+
+body{color:#2f2f2f}.xsj_hr{border-top:1px dashed #2f2f2f}kbd{color:#2f2f2f;border:solid 1px #2f2f2f;border-bottom-color:#2f2f2f;box-shadow:inset 0 -1px 0 #2f2f2f}table{border:1px solid rgba(34,36,38,.15)}.table td,.table th{border-top:1px solid #ddd}.table tbody+tbody{border-top:2px solid #ddd}.table .table{background:#fff}.table-striped tbody>tr:nth-child(odd)>td,.table-striped tbody>tr:nth-child(odd)>th{background:#f9f9f9}.table-celled.table tr td,.table-celled.table tr th{border-left:1px solid rgba(34,36,38,.1)}.line_mark{background:rgba(210,174,174,.3)}.xiaoshujiang_code .mark,code .mark{background:rgba(160,234,194,.7)}.markdown_vertical>*,.markdown_vertical>:first-child{margin-top:.8em}.markdown_vertical{font-family:YRDZST,"Noto Serif CJK SC",FandolKai,"Adobe Kaiti Std","Adobe 楷体 Std",FZKai-Z03S,"方正楷体简体","AR PL UKai CN","楷体",NSimSun,SimSun,serif;font-size:1.2em;writing-mode:vertical-rl;border:initial;border-left:initial;background:initial;margin-left:auto!important;margin-right:0}.markdown_vertical em{-webkit-text-emphasis:circle}.markdown_vertical strong{border-left:2px solid}.html_preview>.markdown_blockquote_heading.markdown_vertical>.xsj_heading:first-child{position:initial;background:initial;border:initial;background-color:initial;border-top:initial}.html_preview>.markdown_blockquote.markdown_vertical>.xsj_paragraph:first-child>i:first-child,.html_preview>.markdown_blockquote_heading.markdown_vertical>.xsj_heading:first-child .xsj_heading_content>i:first-child{position:initial;background-color:initial}@media print{.markdown_vertical{writing-mode:initial}.markdown_vertical strong{border-left:0;border-bottom:2px solid}}
+/*
+
+Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+
+
+/* Base color: saturation 0; */
+
+.hljs,
+.hljs-subst {
+  color: #444;
+}
+
+.hljs-comment {
+  color: #888888;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta .hljs-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: bold;
+}
+
+
+/* User color: hue: 0 */
+
+.hljs-type,
+.hljs-string,
+.hljs-number,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-quote,
+.hljs-template-tag,
+.hljs-deletion {
+  color: #880000;
+}
+
+.hljs-title,
+.hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+
+.hljs-regexp,
+.hljs-symbol,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-link,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #BC6060;
+}
+
+
+/* Language color: hue: 90; */
+
+.hljs-literal {
+  color: #78A960;
+}
+
+.hljs-built_in,
+.hljs-bullet,
+.hljs-code,
+.hljs-addition {
+  color: #397300;
+}
+
+
+/* Meta color: hue: 200 */
+
+.hljs-meta {
+  color: #1f7199;
+}
+
+.hljs-meta .hljs--string {
+  color: #4d99bf;
+}
+
+
+/* Misc effects */
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+</head><body>
+<div><div class="preview" id="wmd-preview">
+
+	<div class="preview html_preview xsj_export_html"><h1 class="story_title">汇编语言学习笔记</h1><p class="xsj_paragraph xsj_paragraph_level_0">a class="xsj_anchor xsj_anchor_range xsj_anchor_range_start" name="xsj_1717753540635"&gt;<br>
+文章链接：<a href="https://www.ruanyifeng.com/blog/2018/01/assembly-language-primer.html" class="xsj_link xsj_auto_link">https://www.ruanyifeng.com/blog/2018/01/assembly-language-primer.html</a></p>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e4b880e38081e4bb80e4b988e698afe6b187e7bc96e8afade8a880_1"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4b880e38081e4bb80e4b988e698afe6b187e7bc96e8afade8a880_1" class="blank_anchor_name"></a><a id="e4b880e38081e4bb80e4b988e698afe6b187e7bc96e8afade8a880_1" class="blank_anchor_id"></a><a name="一-什么是汇编语言" class="blank_anchor_name"></a><a id="一-什么是汇编语言" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">一、什么是汇<a class="xsj_anchor xsj_anchor_range xsj_anchor_range_end" name="xsj_1717753540635"></a>编语言?</span></h1>
+<p class="xsj_paragraph xsj_paragraph_level_0">我们知道，CPU 只负责计算，本身不具备智能。你输入一条指令（instruction），它就运行一次，然后停下来，等待下一条指令。</p>
+<p class="xsj_paragraph xsj_paragraph_level_0">这些指令都是二进制的，称为操作码（opcode），比如加法指令就是<code>00000011</code>。<a href="https://www.ruanyifeng.com/blog/2014/11/compiler.html" class="xsj_link xsj_manu_link">编译器</a>的作用，就是将高级语言写好的程序，翻译成一条条操作码。</p>
+<p class="xsj_paragraph xsj_paragraph_level_0">对于人类来说，二进制程序是不可读的，根本看不出来机器干了什么。为了解决可读性的问题，以及偶尔的编辑需求，就诞生了汇编语言。</p>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e4ba8ce38081e6b187e7bc96e8afade8a880e79a84e69da5e58e86_2"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4ba8ce38081e6b187e7bc96e8afade8a880e79a84e69da5e58e86_2" class="blank_anchor_name"></a><a id="e4ba8ce38081e6b187e7bc96e8afade8a880e79a84e69da5e58e86_2" class="blank_anchor_id"></a><a name="二-汇编语言的来历" class="blank_anchor_name"></a><a id="二-汇编语言的来历" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">二、汇编语言的来历</span></h1>
+<p class="xsj_paragraph xsj_paragraph_level_0">最早的时候，编写程序就是手写二进制指令，然后通过各种开关输入计算机，比如要做加法了，就按一下加法开关。后来，发明了纸带打孔机，通过在纸带上打孔，将二进制指令自动输入计算机。</p>
+<p class="xsj_paragraph xsj_paragraph_level_0">为了解决二进制指令的可读性问题，工程师将那些指令写成了八进制。二进制转八进制是轻而易举的，但是八进制的可读性也不行。很自然地，最后还是用文字表达，加法指令写成<code>ADD</code>。内存地址也不再直接引用，而是用标签表示。</p>
+<p class="xsj_paragraph xsj_paragraph_level_0">这样的话，就多出一个步骤，要把这些文字指令翻译成二进制，这个步骤就称为 assembling，完成这个步骤的程序就叫做 assembler。它处理的文本，自然就叫做 aseembly code。标准化以后，称为 assembly language，缩写为 asm，中文译为汇编语言。</p>
+<blockquote class="markdown_blockquote">
+<p class="xsj_paragraph xsj_paragraph_level_1"><span class="xsj_placeholder_span"></span>每一种 CPU 的机器指令都是不一样的，因此对应的汇编语言也不一样。本文介绍的是目前最常见的 x86 汇编语言，即 Intel 公司的 CPU 使用的那一种。</p>
+</blockquote>
+<p class="xsj_paragraph xsj_paragraph_level_0">学习汇编语言，首先需要了解两个知识点：**<em class="markdown_em_asterisk">寄存器<em class="markdown_em_asterisk"><strong class="markdown_strong_asterisk">与</strong>内存模型</em></em></p>
+<h1 class="xsj_heading_hash xsj_heading xsj_heading_h1" id="e4b889e38081e5af84e5ad98e599a8_3"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4b889e38081e5af84e5ad98e599a8_3" class="blank_anchor_name"></a><a id="e4b889e38081e5af84e5ad98e599a8_3" class="blank_anchor_id"></a><a name="三-寄存器" class="blank_anchor_name"></a><a id="三-寄存器" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">三、寄存器</span></h1>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="e4bb80e4b988e698afe5af84e5ad98e599a8efbc9f_4"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e4bb80e4b988e698afe5af84e5ad98e599a8efbc9f_4" class="blank_anchor_name"></a><a id="e4bb80e4b988e698afe5af84e5ad98e599a8efbc9f_4" class="blank_anchor_id"></a><a name="什么是寄存器" class="blank_anchor_name"></a><a id="什么是寄存器" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">什么是寄存器？</span></h2>
+<p class="xsj_paragraph xsj_paragraph_level_0"><strong class="markdown_strong_asterisk">定义</strong>：寄存器（Register）是一种小型的高速存储器件，位于中央处理器（CPU）内部，用于暂存指令、数据和地址等信息。它是计算机系统中最重要的组件之一，负责存储和提供CPU在执行指令时所需的数据和信息。</p>
+<p class="xsj_paragraph xsj_paragraph_level_0"><s>看不懂是吧</s>，让我来给你解释一下：</p>
+<blockquote class="markdown_blockquote">
+<p class="xsj_paragraph xsj_paragraph_level_1"><span class="xsj_placeholder_span"></span>想象你是一个超快的厨师，在一家忙碌的餐厅中工作。你需要快速地完成各种菜肴，否则客人就会等待太久。<br>
+在你的厨房中，有很多不同的工具和材料，你需要快速地访问和使用它们。现在，想象你的大脑是一个超级计算机，需要快速地处理各种信息和指令。<br>
+寄存器就像你的厨房中的一个小柜台，距离你的大脑非常近。这个柜台上摆放着一些最常用的工具和材料，例如厨刀、砧板、盐、糖等等。<br>
+当你需要使用这些工具和材料时，你不需要跑到远处的仓库中去拿，因为它们已经摆放在你的柜台上了。这使得你的工作变得非常快捷和高效。</p>
+</blockquote>
+<p class="xsj_paragraph xsj_paragraph_level_0">从上面的例子可以看出：<code>在计算机中，寄存器就是一个小型的高速存储器件，位于中央处理器（CPU）内部。它存储着当前正在执行的指令、数据和地址等信息，使得 CPU 能够快速地访问和执行指令。 寄存器的好处就在于，它可以快速地提供 CPU 需要的信息和数据，使得计算机系统的性能和效率大大提高。就像你的厨房柜台一样，寄存器让 CPU 能够快速地“拿到”所需的信息，从而提高工作效率。</code><a class="xsj_anchor xsj_anchor_range xsj_anchor_range_end" name="xsj_1717752832005"></a></p>
+<p class="xsj_paragraph xsj_paragraph_level_0"><strong class="markdown_strong_asterisk">寄存器不同于内存，他并不像内存一样靠地址区分数据，每一个寄存器都有自个儿的名儿。</strong> 总之，寄存器是 CPU 的一个重要组件，负责<span class="mark mark_color mark_color_B78D12" style="color:#B78D12;background-color:rgba(183, 141, 18, 0.1)">存储和提供 CPU 执行指令所需的数据和信息，以提高计算机系统的性能和效率</span>。</p>
+<p class="xsj_paragraph xsj_paragraph_level_0"></p><div class="story_image_container story_block_image"><div class="story_image"><img src="data:image/png;base64,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" data-vdom-skip="true" data-vdom-cache="true" alt="寄存器与其他存储器的关系" title="寄存器与其他存储器的关系" name="images/bg2018012206.png" data-src="./images/bg2018012206.png"><br><div class="story_image_caption ">寄存器与其他存储器的关系</div></div></div><p></p>
+<h2 class="xsj_heading_hash xsj_heading xsj_heading_h2" id="e5af84e5ad98e599a8e79a84e7a78de7b1bb_5"><div class="xiaoshujiang_element xsj_anchor">
+  <a name="e5af84e5ad98e599a8e79a84e7a78de7b1bb_5" class="blank_anchor_name"></a><a id="e5af84e5ad98e599a8e79a84e7a78de7b1bb_5" class="blank_anchor_id"></a><a name="寄存器的种类" class="blank_anchor_name"></a><a id="寄存器的种类" class="blank_anchor_id"></a>
+</div>
+<span class="xsj_heading_content">寄存器的种类</span></h2>
+<p class="xsj_paragraph xsj_paragraph_level_0">早期 x86 CPU 只有8个寄存器，而且每个都有不同的用途。现在已经有很多，都变成通用寄存器，不特别指定用途了，但是早期寄存器的名字都被保存了下来。<br>
+他们分别是</p>
+<div class="xiaoshujiang_code_container"><pre data-processed="true"><code class="nohighlight hljs">	·EAX
+	·EBX
+	·ECX
+	·EDX
+	·EDI
+	·ESI
+	·EBP
+	·ESP</code></pre></div>
+</div>
+
+</div></div>
+</body></html>
+
